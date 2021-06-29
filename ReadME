@@ -2,6 +2,4 @@ Compile the code with
 
 g++ -g main.cpp
 
-test TEste testst
 
-teste test

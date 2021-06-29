@@ -19,16 +19,33 @@ class Face
         // Member Functions      
         void setOwner(int);
         void setNeighbour(int);
-        void computeFaceAreaVector();
-        void setweightingFactor(double);
-
-        int getOwner() const ;
-        int getNeighbour() const;
-        vector3 getCenterOfMass() const;
-        vector3 getFaceAreaVector() const;
 
         // Write to stream
         friend std::ostream& operator<<(std::ostream& , const Face& );
+
+        // Added at 23 Jun
+        const vector3& getAreaVector() const 
+        {
+            return areaVector_;
+        }
+         
+        const vector3& getCenterOfMass() const
+        {
+            return centerOfMass_;
+        }
+
+
+        const int& faceOwner() const 
+        // gets the address of the owner 
+        {
+           return owner_;
+        }
+
+        const int& faceNeighbour() const 
+        {
+           return neighbour_;
+        }
+
        
          
     protected:
