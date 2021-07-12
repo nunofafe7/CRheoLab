@@ -266,6 +266,12 @@ void Face::computeFaceWeightingFactor_interiorFaces()
 }
 
 
+void Face::computeFaceWeightingFactor_boundaryFaces()
+{
+    setweightingFactor(1.0);
+}
+
+
 void Face::computeFaceIntersectionPoint()
 {
 
@@ -325,13 +331,6 @@ void Face::computeFaceSkewness()
     }  
 
 }
-
-void Face::computeFaceWeightingFactor_boundaryFaces()
-{
-    setweightingFactor(1.0);
-}
-
-
 
 std::ostream& operator<<(std::ostream& os, const Face& p)
 {
