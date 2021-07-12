@@ -16,6 +16,11 @@ void Cell::setCellID(const int& ID)
     ID_ = ID;
 }
 
+void Cell::setSkewness(const double skewness)
+{
+    skewness_ = skewness;
+}
+
 
 void Cell::setCellFaces(const vector<Face*>& cellFaces)
 {
@@ -27,4 +32,9 @@ void Cell::setCellFaces(const vector<Face*>& cellFaces)
 const vector3& Cell::getCenterOfMass() const
 {
     return centerOfMass_;
+}
+
+const double Cell::getSkewness() const
+{
+    return skewness_;
 }

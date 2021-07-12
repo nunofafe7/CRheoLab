@@ -37,6 +37,8 @@ class Face
         void computeFaceCenterOfMass();
         void computeFaceWeightingFactor_interiorFaces();
         void computeFaceWeightingFactor_boundaryFaces();
+        void computeFaceIntersectionPoint();
+        void computeFaceSkewness();
 
         // Write to stream
         friend std::ostream& operator<<(std::ostream& , const Face& );
@@ -69,6 +71,14 @@ class Face
         // Non-orthogonality angle
         double nonOrthogonalityAngle_;
 
+        // Face Skewness
+        double skewness_;
+
+        // Intersection point (IP)
+        //// For inner faces - the IP on the line that joins the center of mass of the owner and neighbour cells
+        //// For boundary faces - the IP will be on the line normal to the face that passes by 
+        ////                      the center of mass of the owner cell
+        vector3 intersectionPoint_; 
 };
 
 #endif // FACE_H

@@ -265,6 +265,67 @@ void Face::computeFaceWeightingFactor_interiorFaces()
     setweightingFactor( (d_Cf & e_f) / ( (d_Cf & e_f) + (d_fF & e_f) ));
 }
 
+
+void Face::computeFaceIntersectionPoint()
+{
+
+    if (neighbour_ != nullptr)
+    //interior faces
+    {
+        vector3 ptOwn = owner_->getCenterOfMass();
+        vector3 ptNei = neighbour_->getCenterOfMass();
+
+        vector3 vecOF = centerOfMass_ - ptOwn;
+        vector3 vecFN = ptNei - centerOfMass_;
+        vector3 vecON = ptNei-ptOwn;
+
+        double dOF = abs((vecOF & areaVector_)/mag(areaVector_));
+        double dFN = abs((vecFN & areaVector_)/mag(areaVector_));
+
+        intersectionPoint_ = ptOwn + (dOF / (dOF + dFN) ) * vecON;
+    }
+    else
+    //boundary faces
+    {
+        vector3 ptOwn = owner_->getCenterOfMass();
+        
+        vector3 vecOF = centerOfMass_ - ptOwn;
+
+        vector3 unitNormalVectorFace = 1.0/mag(areaVector_) * areaVector_;
+
+        double dOF=abs((vecOF & unitNormalVectorFace )/mag(areaVector_));
+       
+        intersectionPoint_ = ptOwn+dOF*unitNormalVectorFace;
+    }
+
+}
+
+void Face::computeFaceSkewness()
+{
+    if (neighbour_ != nullptr)
+    //interior faces
+    {
+
+        double skewness_=abs(mag(intersectionPoint_-centerOfMass_)/
+                            mag(owner_->getCenterOfMass() - neighbour_->getCenterOfMass()));
+
+        //update Owner and Neighbour Cells Skewness
+        owner_->setSkewness(std::max(owner_->getSkewness(),skewness_));
+        neighbour_->setSkewness(std::max(neighbour_->getSkewness(),skewness_));
+    }
+    else
+    //boundary faces
+    {
+        double skewness_=abs(mag(intersectionPoint_- centerOfMass_)/
+                            mag(owner_->getCenterOfMass() - centerOfMass_));
+
+        //update Owner Cell Skewness
+        owner_->setSkewness(std::max(owner_->getSkewness() , skewness_));
+
+    }  
+
+}
+
 void Face::computeFaceWeightingFactor_boundaryFaces()
 {
     setweightingFactor(1.0);

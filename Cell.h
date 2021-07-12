@@ -16,9 +16,11 @@ class Cell
         // Setters
         void setCellFaces(const vector<Face*>& );
         void setCellID(const int& );
+        void setSkewness(const double);
 
         // Getters
         const vector3& getCenterOfMass() const;
+        const double getSkewness() const;
 
          
     protected:

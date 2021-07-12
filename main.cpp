@@ -37,7 +37,7 @@ int main()
    checkCaseStructure();
     
     Mesh polyMesh;
-    for(unsigned int i =0 ; i<polyMesh.nInteriorFaces_ ; i++)
+/*     for(unsigned int i =0 ; i<polyMesh.nInteriorFaces_ ; i++)
     {
         polyMesh.faceList_[i].computeFaceWeightingFactor_interiorFaces(); 
     }
@@ -45,7 +45,7 @@ int main()
     for(unsigned int i = polyMesh.nInteriorFaces_; i<polyMesh.nFaces_; i++)
     {
         polyMesh.faceList_[i].computeFaceWeightingFactor_boundaryFaces();
-    }
+    } */
     /*// Print single point
     cout << polyMesh.pointList_[0] << endl;
 
@@ -55,6 +55,11 @@ int main()
     cout << "my directory is " << getExecutablePath() << endl;
 
 */
+    for(unsigned int i =0 ; i<polyMesh.nFaces_ ; i++)
+    {
+        polyMesh.faceList_[i].computeFaceIntersectionPoint(); 
+      //  polyMesh.faceList_[i].computeFaceSkewness(); 
+    }
 
     std::cout << "I am done" << std::endl;
 
