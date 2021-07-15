@@ -55,7 +55,7 @@ int main()
     for(unsigned int i =0 ; i<polyMesh.nFaces_ ; i++)
     {
         polyMesh.faceList_[i].computeIntersectionPoint(); 
-      //  polyMesh.faceList_[i].computeFaceSkewness(); 
+        polyMesh.faceList_[i].computeSkewness(); 
     }
 
     std::cout << "I am done" << std::endl;
