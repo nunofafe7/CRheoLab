@@ -18,8 +18,6 @@ Face::Face(int nPointsInFace, vector<Point*> facePoints)
 
 Face::Face( )
 {
-
-
 }
 
 void Face::setOwner(Cell& owner)
@@ -63,7 +61,13 @@ const vector3& Face::getAreaVector() const
     return areaVector_;
 }
 
-void Face::computeFaceArea()
+const double& Face::getWeightingFactor() const
+{
+    return weightingFactor_;
+}
+
+
+void Face::computeArea()
 {
 
     double a(0);
@@ -130,7 +134,7 @@ void Face::computeFaceArea()
 
 }
 
-void Face::computeFaceCenterOfMass()
+void Face::computeCenterOfMass()
 {
     // face is a triangle
     if(nPointsInFace_ == 3)
@@ -209,8 +213,9 @@ void Face::computeFaceCenterOfMass()
 
 }
 
-void Face::computeFaceAreaVector_interiorFaces()
+void Face::computeAreaVector()
 {
+    bool isInteriorFace (getNeighbour());
     //Creates two vectors from the center of mass and one of the points in the face
     vector3 tmp_vec1 = facePoints_[0]->getPoint() - centerOfMass_;
     vector3 tmp_vec2 = facePoints_[1]->getPoint() - centerOfMass_;
@@ -221,54 +226,44 @@ void Face::computeFaceAreaVector_interiorFaces()
     // Computes the norm of the cross product between two vectors
     double mag_vector_tmp = mag(areaVector_tmp);
 
-    // distance vector between owner and neighbour cell
-    vector3 d_ON = neighbour_->getCenterOfMass() - owner_->getCenterOfMass();
 
-    if( (areaVector_tmp & d_ON) < 0) 
+
+
+    if (isInteriorFace)
     {
-        // rotates area vector by 180º
-        areaVector_tmp=-1.0*areaVector_tmp;
-    }
+        // distance vector between owner and neighbour cell
+        vector3 d_ON = neighbour_->getCenterOfMass() - owner_->getCenterOfMass();
 
+        if( (areaVector_tmp & d_ON) < 0) 
+        {
+            // rotates area vector by 180º
+            areaVector_tmp=-1.0*areaVector_tmp;
+        }
+    }
     // Calculates the faceAreaVector
     areaVector_ = (areaVector_tmp/mag_vector_tmp)*area_;
-
-
     
 }
 
-void Face::computeFaceAreaVector_boundaryFaces()
+void Face::computeWeightingFactor()
 {
-    //Creates two vectors from the center of mass and one of the points in the face
-    vector3 tmp_vec1 = facePoints_[0]->getPoint() - centerOfMass_;
-    vector3 tmp_vec2 = facePoints_[1]->getPoint() - centerOfMass_;
+    bool isInteriorFace (getNeighbour());
 
-    // Computes the face normal by doing the cross product of the products (this is not the faceAreaVector)
-    vector3 areaVector_tmp = (tmp_vec1^tmp_vec2);
-    
-    // Computes the norm of the cross product between two vectors
-    double mag_vector_tmp = mag(areaVector_tmp);
+    if (isInteriorFace)
+    {
+        const vector3& faceCenter = getCenterOfMass();
+        const vector3& C_o = owner_->getCenterOfMass();
+        const vector3& C_n = neighbour_->getCenterOfMass();
 
-    // Calculates the faceAreaVector
-    areaVector_ = (areaVector_tmp/mag_vector_tmp)*area_;    
-}
-
-void Face::computeFaceWeightingFactor_interiorFaces()
-{
-    const vector3& faceCenter = getCenterOfMass();
-    const vector3& C_o = owner_->getCenterOfMass();
-    const vector3& C_n = neighbour_->getCenterOfMass();
-
-    const vector3 d_Cf = C_o - faceCenter;
-    const vector3 d_fF = C_n - faceCenter;
-    const vector3 e_f = getAreaVector()/mag( getAreaVector() );
-    setweightingFactor( (d_Cf & e_f) / ( (d_Cf & e_f) + (d_fF & e_f) ));
-}
-
-
-void Face::computeFaceWeightingFactor_boundaryFaces()
-{
-    setweightingFactor(1.0);
+        const vector3 d_Cf = C_o - faceCenter;
+        const vector3 d_fF = C_n - faceCenter;
+        const vector3 e_f = getAreaVector()/mag( getAreaVector() );
+        setweightingFactor( (d_Cf & e_f) / ( (d_Cf & e_f) + (d_fF & e_f) ));
+    }
+    else
+    {
+        setweightingFactor(1.0);
+    }
 }
 
 

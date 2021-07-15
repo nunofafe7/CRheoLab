@@ -17,35 +17,40 @@ FoamFile
 
 5
 (
-    top
+    frontAndBack
     {
         type            patch;
-        nFaces          10000;
-        startFace       2970000;
+        physicalType    patch;
+        nFaces          5316;
+        startFace       3923;
     }
     bottom
     {
         type            patch;
-        nFaces          10000;
-        startFace       2980000;
-    }
-    frontAndBack
-    {
-        type            patch;
-        nFaces          20000;
-        startFace       2990000;
-    }
-    left
-    {
-        type            patch;
-        nFaces          10000;
-        startFace       3010000;
+        physicalType    patch;
+        nFaces          32;
+        startFace       9239;
     }
     right
     {
         type            patch;
-        nFaces          10000;
-        startFace       3020000;
+        physicalType    patch;
+        nFaces          32;
+        startFace       9271;
+    }
+    top
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          32;
+        startFace       9303;
+    }
+    left
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          32;
+        startFace       9335;
     }
 )
 
