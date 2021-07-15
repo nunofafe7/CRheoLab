@@ -272,7 +272,7 @@ void Face::computeFaceWeightingFactor_boundaryFaces()
 }
 
 
-void Face::computeFaceIntersectionPoint()
+void Face::computeIntersectionPoint()
 {
 
     if (neighbour_ != nullptr)
@@ -306,7 +306,7 @@ void Face::computeFaceIntersectionPoint()
 
 }
 
-void Face::computeFaceSkewness()
+void Face::computeSkewness()
 {
     if (neighbour_ != nullptr)
     //interior faces
