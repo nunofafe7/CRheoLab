@@ -30,16 +30,15 @@ class Face
         const Cell* getNeighbour() const;
         const vector3& getCenterOfMass() const;
         const vector3& getAreaVector() const;
+        const double& getWeightingFactor() const;
 
-        void computeFaceArea();
-        void computeFaceAreaVector_interiorFaces();
-        void computeFaceAreaVector_boundaryFaces();
-        void computeFaceCenterOfMass();
-        void computeFaceWeightingFactor_interiorFaces();
-        void computeFaceWeightingFactor_boundaryFaces();
+        void computeArea();
+        void computeAreaVector();
+        void computeCenterOfMass();
+        void computeWeightingFactor();
         void computeIntersectionPoint();
         void computeSkewness();
-
+        
         // Write to stream
         friend std::ostream& operator<<(std::ostream& , const Face& );
        

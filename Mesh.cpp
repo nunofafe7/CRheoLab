@@ -291,32 +291,25 @@ void Mesh::updateCellAndFaceData(std::string pathOwners, std::string pathNeighbo
 
   // Assign the pointers to cell owners and neighbours for each face
   // Loops over the interior faces
-  for(unsigned int faceI = 0; faceI< nInteriorFaces_; faceI++)
-  {
-    int tmp_owner = ownersList[faceI];
-    int tmp_neighbour = neighboursList[faceI];
-
-    faceList_[faceI].setOwner( cellList_[tmp_owner]  );
-    faceList_[faceI].setNeighbour( cellList_[tmp_neighbour]  );
-
-    // Update face parameters
-    faceList_[faceI].computeFaceArea();
-    faceList_[faceI].computeFaceCenterOfMass();
-    faceList_[faceI].computeFaceAreaVector_interiorFaces();
-  }
-
-  // Loops over the boundary faces
-  for(unsigned int faceI = nInteriorFaces_ +1; faceI< nFaces_; faceI++)
+  for(unsigned int faceI = 0; faceI< nFaces_; faceI++)
   {
     int tmp_owner = ownersList[faceI];
     faceList_[faceI].setOwner( cellList_[tmp_owner]  );
-    
+
+    if (faceI < nInteriorFaces_)
+    {
+      int tmp_neighbour = neighboursList[faceI];
+      faceList_[faceI].setNeighbour( cellList_[tmp_neighbour]  );
+    }
+
+
     // Update face parameters
-    faceList_[faceI].computeFaceArea();
-    faceList_[faceI].computeFaceCenterOfMass();
-    faceList_[faceI].computeFaceAreaVector_boundaryFaces();
+    faceList_[faceI].computeArea();
+    faceList_[faceI].computeCenterOfMass();
+    faceList_[faceI].computeAreaVector();
+    faceList_[faceI].computeWeightingFactor();
   }
-  
+
 }
 
 
