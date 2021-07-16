@@ -251,14 +251,23 @@ void Face::computeWeightingFactor()
 
     if (isInteriorFace)
     {
+        // linear interpoaltion factor defined as:
+        // g_c \phi_P + (1-g_c) \phi_N
         const vector3& faceCenter = getCenterOfMass();
         const vector3& C_o = owner_->getCenterOfMass();
         const vector3& C_n = neighbour_->getCenterOfMass();
 
-        const vector3 d_Cf = C_o - faceCenter;
+        const vector3 d_Cf = faceCenter - C_o ;
         const vector3 d_fF = C_n - faceCenter;
-        const vector3 e_f = getAreaVector()/mag( getAreaVector() );
-        setweightingFactor( (d_Cf & e_f) / ( (d_Cf & e_f) + (d_fF & e_f) ));
+        //const vector3 e_f = getAreaVector()/mag( getAreaVector() );
+
+        const vector3& Sf = getAreaVector();
+
+        double SfdOwn = std::abs(Sf & d_Cf);
+        double SfdNei = std::abs(Sf & d_fF);
+
+        //setweightingFactor( std::abs(d_fF & e_f) / ( std::abs(d_Cf & e_f) + std::abs(d_fF & e_f) ));
+        setweightingFactor( SfdNei / ( SfdOwn + SfdNei ) );
     }
     else
     {

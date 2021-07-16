@@ -38,11 +38,6 @@ int main()
     
     Mesh polyMesh;
 
-    for (unsigned int i = 0; i< polyMesh.nFaces_ ; i++)
-    {
-        std::cout << polyMesh.faceList_[i].getWeightingFactor() << std::endl;;
-    }
-
     /*// Print single point
     cout << polyMesh.pointList_[0] << endl;
 
@@ -58,7 +53,8 @@ int main()
         polyMesh.faceList_[i].computeSkewness(); 
     }
 
-    std::cout << "I am done" << std::endl;
+    //std::cout << "I am done\n\n\n" << std::endl;
+
 
 
     //polyMesh.faceList_[0].owner()=2;

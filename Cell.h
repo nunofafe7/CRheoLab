@@ -17,11 +17,19 @@ class Cell
         void setCellFaces(const vector<Face*>& );
         void setCellID(const int& );
         void setSkewness(const double);
+        void setCenterOfMass(const vector3&);
 
         // Getters
         const vector3& getCenterOfMass() const;
+        const double&  getVolume() const;
         const double getSkewness() const;
 
+        void computeCenter();
+        void computeVolume();
+
+        double computepyrVol (const vector3&, const vector3&, const vector3&) const;
+        
+        vector3 computeGeometricCenter() const;
          
     protected:
 

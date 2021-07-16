@@ -302,17 +302,28 @@ void Mesh::updateCellAndFaceData(std::string pathOwners, std::string pathNeighbo
       faceList_[faceI].setNeighbour( cellList_[tmp_neighbour]  );
     }
 
-
     // Update face parameters
     faceList_[faceI].computeArea();
     faceList_[faceI].computeCenterOfMass();
     faceList_[faceI].computeAreaVector();
+    
+  }
+
+  //Update Cell Centers and Volume
+  for (unsigned int cellI = 0; cellI< nCells_; cellI++)
+  {
+      cellList_[cellI].computeVolume();
+      cellList_[cellI].computeCenter();
+  }
+
+  // Update face weighting factors
+  for (unsigned int faceI = 0; faceI < nFaces_; faceI++)
+  {
     faceList_[faceI].computeWeightingFactor();
   }
 
+
 }
-
-
 
 
 void Mesh::readBoundary(std::string path)

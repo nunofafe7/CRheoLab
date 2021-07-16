@@ -32,7 +32,7 @@ std::ostream& operator<<(std::ostream& os, const vector3& v)
         os<< v[i] << " ";
     }
 
-    os << "]" << std::endl;
+    os << "]" ;
     return os;
 }
 
