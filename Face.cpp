@@ -297,29 +297,42 @@ void Face::computeIntersectionPoint()
     if (neighbour_ != nullptr)
     //interior faces
     {
+        // Owner Cell Center of Mass (CM)
         vector3 ptOwn = owner_->getCenterOfMass();
+        // Neighbour Cell Center of Mass
         vector3 ptNei = neighbour_->getCenterOfMass();
 
+        // Vector Owner CM to Face CM
         vector3 vecOF = centerOfMass_ - ptOwn;
+        // Vector Face CM to Neighbour CM
         vector3 vecFN = ptNei - centerOfMass_;
+        // Vector Owner CM to Neighbour CM
         vector3 vecON = ptNei-ptOwn;
 
+        // distance Owner CM to Face CM parallel to Face Area vector
         double dOF = abs((vecOF & areaVector_)/mag(areaVector_));
+        // distance Face CM to Neighbour CM parallel to Face Area vector
         double dFN = abs((vecFN & areaVector_)/mag(areaVector_));
 
+        // Face Intersection Point 
         intersectionPoint_ = ptOwn + (dOF / (dOF + dFN) ) * vecON;
     }
     else
     //boundary faces
     {
+        // Owner CM
         vector3 ptOwn = owner_->getCenterOfMass();
         
+        // Vector Owner CM to Face CM
         vector3 vecOF = centerOfMass_ - ptOwn;
-
+        
+        // Unit vector normal to the face
         vector3 unitNormalVectorFace = 1.0/mag(areaVector_) * areaVector_;
 
+        // distance Owner CM to Face CM parallel to Face Area vector
         double dOF=abs((vecOF & unitNormalVectorFace )/mag(areaVector_));
        
+        // Face Intersection Point 
         intersectionPoint_ = ptOwn+dOF*unitNormalVectorFace;
     }
 
