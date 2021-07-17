@@ -35,7 +35,7 @@ const vector3& Cell::getCenterOfMass() const
     return centerOfMass_;
 }
 
-const double Cell::getSkewness() const
+const double& Cell::getSkewness() const
 {
     return skewness_;
 }

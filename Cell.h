@@ -22,7 +22,7 @@ class Cell
         // Getters
         const vector3& getCenterOfMass() const;
         const double&  getVolume() const;
-        const double getSkewness() const;
+        const double& getSkewness() const;
 
         void computeCenter();
         void computeVolume();

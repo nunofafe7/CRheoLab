@@ -330,7 +330,7 @@ void Face::computeIntersectionPoint()
         vector3 unitNormalVectorFace = 1.0/mag(areaVector_) * areaVector_;
 
         // distance Owner CM to Face CM parallel to Face Area vector
-        double dOF=abs((vecOF & unitNormalVectorFace )/mag(areaVector_));
+        double dOF=abs(vecOF & unitNormalVectorFace );
        
         // Face Intersection Point 
         intersectionPoint_ = ptOwn+dOF*unitNormalVectorFace;
@@ -344,17 +344,18 @@ void Face::computeSkewness()
     //interior faces
     {
 
-        double skewness_=abs(mag(intersectionPoint_-centerOfMass_)/
+        skewness_=abs(mag(intersectionPoint_ - centerOfMass_)/
                             mag(owner_->getCenterOfMass() - neighbour_->getCenterOfMass()));
 
         //update Owner and Neighbour Cells Skewness
         owner_->setSkewness(std::max(owner_->getSkewness(),skewness_));
         neighbour_->setSkewness(std::max(neighbour_->getSkewness(),skewness_));
+        
     }
     else
     //boundary faces
     {
-        double skewness_=abs(mag(intersectionPoint_- centerOfMass_)/
+        skewness_=abs(mag(intersectionPoint_- centerOfMass_)/
                             mag(owner_->getCenterOfMass() - centerOfMass_));
 
         //update Owner Cell Skewness
@@ -362,4 +363,19 @@ void Face::computeSkewness()
 
     }  
 
+}
+
+const double& Face::getSkewness() const
+{
+    return skewness_;
+}
+
+void Face::setSkewness(double skewness)
+{
+    skewness_ = skewness;
+}
+
+const vector3& Face::getIntersectionPoint() const
+{
+    return intersectionPoint_;
 }

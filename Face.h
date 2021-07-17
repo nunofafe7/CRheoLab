@@ -24,6 +24,7 @@ class Face
         void setNeighbour(Cell&);
         void setID(const int&);
         void setweightingFactor(double);
+        void setSkewness(double);
 
         // getters
         const Cell* getOwner() const;
@@ -31,6 +32,8 @@ class Face
         const vector3& getCenterOfMass() const;
         const vector3& getAreaVector() const;
         const double& getWeightingFactor() const;
+        const double& getSkewness() const;
+        const vector3& getIntersectionPoint() const;
 
         void computeArea();
         void computeAreaVector();

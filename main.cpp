@@ -47,10 +47,31 @@ int main()
     cout << "my directory is " << getExecutablePath() << endl;
 
 */
+    for(unsigned int i =0 ; i<polyMesh.nCells_ ; i++)
+    {
+        polyMesh.cellList_[i].computeVolume(); 
+        polyMesh.cellList_[i].computeCenter(); 
+        // cout << "Cell:"<< i << " volume:" << polyMesh.cellList_[i].getVolume() 
+        //                     << " Center:" << polyMesh.cellList_[i].getCenterOfMass() << endl;
+
+    }
+
+
     for(unsigned int i =0 ; i<polyMesh.nFaces_ ; i++)
     {
+        polyMesh.faceList_[i].computeArea();
+        polyMesh.faceList_[i].computeAreaVector();
+        polyMesh.faceList_[i].computeCenterOfMass(); 
         polyMesh.faceList_[i].computeIntersectionPoint(); 
         polyMesh.faceList_[i].computeSkewness(); 
+        // cout << "Face:"<< i << " intPt:" << polyMesh.faceList_[i].getIntersectionPoint() 
+        //                     << " skewness:" << polyMesh.faceList_[i].getSkewness() << endl; 
+    }
+
+    for(unsigned int i =0 ; i<polyMesh.nCells_ ; i++)
+    {
+        cout << "Cell:"<< i << " skewness: " << polyMesh.cellList_[i].getSkewness() << endl; 
+        for(unsigned int j =0 ; i<polyMesh.nCells_ ; i++)
     }
 
     //std::cout << "I am done\n\n\n" << std::endl;
