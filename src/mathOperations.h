@@ -11,11 +11,9 @@ typedef std::vector<double>                 scalarField;
 typedef std::vector<vector3>                vectorField;
 typedef std::vector<tensor>                 tensorField;
 
-#include <cmath>   
+#include <cmath>
 #include "fieldOperations.h"
 #include "scalarOperations.h"
 #include "vectorOperations.h"
 #include "tensorOperations.h"
 #endif
-
-
