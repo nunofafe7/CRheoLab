@@ -8,46 +8,60 @@
 class internalField;
 class boundaryField;
 
-class volField<type>
+// typename should be scalar, vector3 or tensor
+template <typename T>
+class volField
 {
     public:
 
         // Constructor
-        volField();
+        volField(std::string,std::string,const Mesh&);
 
         // Destructor
         virtual ~volField(){};
 
-        // read/write functions
-        void read();
-        void write();
-        void readHeader();
-        void writeHeader();
+        // Getters
+        const Mesh* getRefMesh() const;
+        const std::string getName() const;
+        const std::string getPath() const;
+        const std::string getType() const;
+        const std::vector<int> getDimensions() const;
+        const internalField<T>* getInternalField() const;
+        const boundaryField<T>* getBoundaryField() const;
+
+        // Read/write functions
+        void read(std::string);
+        void write(std::string);
+        void readHeader(std::string);
+        void writeHeader(std::string);
 
         // Useful functions
-
+        // ???
 
     protected:
 
     private:
 
-        // mesh associated to the volume field
+        // Reference mesh
         Mesh* refMesh_;
 
-        // name of volume field
+        // Path
+        std::string path_;
+
+        // Name
         std::string name_;
 
-        // type of data (scalar, vector or tensor)
+        // Type of data (scalar, vector or tensor)
         std::string type_;
 
-        // dimension of volume field
+        // Dimensions
         std::vector<int> dimensions_(7);
 
-        // internal field
-        internalField<type> internalField_;
+        // Internal field
+        internalField<T> internalField_;
 
-        // boundary field
-        boundaryField<type> boundaryField_;
+        // Boundary field
+        boundaryField<T> boundaryField_;
 
 };
 

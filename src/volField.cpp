@@ -1,57 +1,62 @@
 #include "volField.h"
 
-// constructor
-volField::volField(std::string& path, const Mesh& refMesh)
+// Constructor
+template <typename T>
+volField<T>::volField(std::string path, std::string filename, const Mesh& refMesh)
 {
-      // set reference mesh
+      // Set path
+      path_ = path;
+
+      // Set reference mesh
       refMesh_ = &refMesh;
 
-      // read volume field
-      read(path);
+      // Read volume field
+      read(path, filename);
 }
 
-// read header of volume field file
-void volField::read(std::string& path)
+// Read header of volume field file
+template <typename T>
+void volField<T>::read(std::string path, std::string filename)
 {
-      // read header
-      readHeader(path);
+      // Read header
+      readHeader(path, filename);
 
-      // read internal field
-      internalField_.read(path);
+      // Read internal field
+      internalField_.read(path, filename);
 
-      // read boundary field
-      boundaryField_.read(path);
+      // Read boundary field
+      boundaryField_.read(path, filename);
 }
 
-// write volume field file
-void volField::write(std::string& path)
+// Write volume field file
+template <typename T>
+void volField<T>::write(std::string path, std::string filename)
 {
-      // write header
-      writeHeader(path);
+      // Write header
+      writeHeader(path, filename);
 
-      // write internalField
-      internalField_.write(path);
+      // Write internalField
+      internalField_.write(path, filename);
 
-      // write boundaryField
-      boundaryField_.write(path);
+      // Write boundaryField
+      boundaryField_.write(path, filename);
 }
 
-// read header of volume field file
-void volField::readHeader()
+// Read header of volume field file
+template <typename T>
+void volField<T>::readHeader(std::string path, std::string filename)
 {
-
+      // TO DO: read header to get name, type and dimensions of volume field
       name_ = ???;
-
       type_ = ???;
-
       dimensions_ = ???;
-
 }
 
-// write header of volume field file
-void volField::writeHeader()
+// Write header of volume field file
+template <typename T>
+void volField<T>::writeHeader(std::string path, std::string filename)
 {
-
+      // TO DO: write back header to a file
 }
 
 // Useful functions
