@@ -22,10 +22,10 @@ class volField
 
         // Getters
         const Mesh* getRefMesh() const;
-        const std::string getName() const;
-        const std::string getPath() const;
-        const std::string getType() const;
-        const std::vector<int> getDimensions() const;
+        const std::string& getName() const;
+        const std::string& getPath() const;
+        const std::string& getType() const;
+        const std::vector<int>& getDimensions() const;
         const internalField<T>* getInternalField() const;
         const boundaryField<T>* getBoundaryField() const;
 
