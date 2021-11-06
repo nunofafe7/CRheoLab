@@ -29,7 +29,26 @@ int main()
 
     Mesh polyMesh(time);
     
-    volField<scalarField> p ("p", polyMesh, time);
+    
+    volField<double> p ("p", polyMesh, time);
+    volField<double> p1 ("p1", polyMesh, time);
+    volField<double> resultp ("resultp", polyMesh, time);
+
+    volField<vector3> U ("U", polyMesh, time);
+    volField<vector3> U1 ("U1", polyMesh, time);   
+    volField<vector3> resultU ("resultU", polyMesh, time);
+
+    
+
+    // shift field
+    p.shiftField(5);
+
+    // scale field
+    p.scaleField(10);
+
+    // sum two scalarfields
+    resultp = p+p1;
+    resultU = U+U1;
    // volField<vectorField> U ("U", polyMesh);
 
     std::cout << "Current path is : " << time.Path() << std::endl;

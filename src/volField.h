@@ -25,6 +25,12 @@ class volField
 
         // Member Functions
         vectorType readInternalField();
+        void shiftField(const vectorType& shiftQuantity);
+        void scaleField(const vectorType& scaleQuantity);
+        vectorType shiftMaxField();
+        vectorType shiftMinField();        
+        vectorType projectField();
+
         
         // Read Data
         template <typename primitiveType>
@@ -33,19 +39,23 @@ class volField
         // Boundary condition structure
         struct patchBoundaryConditions
         {
-            std::string type;
-            vectorType fieldValue;
-            std::map<std::string, std::string> otherInfo;
+            std::string type; // fixedvalue, 
+            vectorType fieldValue; // vector com valores
+            std::map<std::string, std::string> otherInfo; // reynolds = 5
         };
 
         // Read boundary field
+        
         patchBoundaryConditions readBoundaryField(std::string& patchName);
+
+        // create a var to store all patchfiels data
+
 
     private:
         const Mesh&     mesh_;
         const RunTime&  runTime_;
         vectorType internalField;
-
+        std::vector<patchBoundaryConditions> boundaryField_;   
 };
 
 #endif 
