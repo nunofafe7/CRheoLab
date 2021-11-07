@@ -26,10 +26,10 @@ class volField
         // Member Functions
         vectorType readInternalField();
         void shiftField(const vectorType& shiftQuantity);
-        void scaleField(const vectorType& scaleQuantity);
-        vectorType shiftMaxField();
-        vectorType shiftMinField();        
-        vectorType projectField();
+        void scaleField(const double scaleQuantity);
+        void shiftMaxField();
+        void shiftMinField();        
+        void projectField(const vector3& projectVector);
 
         
         // Read Data

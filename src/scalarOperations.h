@@ -127,6 +127,43 @@ inline scalarField pow(const scalarField& v1, const int n)
    return result;
 }
 
+inline double maxScalarField(const scalarField& v1)
+{   
+   
+   double result = v1[0];
+   
+   for(unsigned int i = 1 ; i < v1.size(); i++)
+   {
+        result = std::max(v1[i], result);
+   }
+   return result;
+}
+
+inline double minScalarField(const scalarField& v1)
+{   
+   
+   double result = v1[0];
+   
+   for(unsigned int i = 1 ; i < v1.size(); i++)
+   {
+        result = std::min(v1[i], result);
+   }
+   return result;
+}
+
+
+inline scalarField mag(const scalarField& v1)
+{   
+   
+   scalarField result(v1.size());
+   
+   for(unsigned int i = 1 ; i < v1.size(); i++)
+   {
+        result[i] = std::abs(v1[i]);
+   }
+   return result;
+}
+
 inline double radToDegree(const double s)
 {   
 

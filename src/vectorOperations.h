@@ -202,6 +202,18 @@ inline vectorField operator*( const scalarField& s1, const vectorField& v1)
     return result;
 }
 
+inline vectorField operator*( const scalarField& s1, const vector3& v1)
+{
+    vectorField result(s1.size());
+
+    for(unsigned int i = 0 ; i < s1.size(); i++)
+    {
+        result[i] = v1 * s1[i];
+    }
+
+    return result;
+}
+
 inline tensorField operator*(const vectorField& v1, const vectorField& v2)
 {
     checkSize(v1,v2);
@@ -266,6 +278,17 @@ inline vectorField operator/(const scalarField& s1, const vectorField& v1)
     return result;
 }
 
+inline scalarField operator&(const vectorField& v1, const vector3& v2)
+{
+    scalarField result(v1.size());
+
+    for(unsigned int i = 0 ; i < v1.size(); i++)
+    {
+        result[i] = v1[i] & v2;
+    }
+
+    return result;
+}
 
 inline scalarField operator&(const vectorField& v1, const vectorField& v2)
 {
