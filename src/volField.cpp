@@ -78,7 +78,7 @@ void volField<T>::writeDimensions(std::string path, std::string filename)
       std::cout<<"];\n\n"<<std::endl;
 
     }else{
-      std::cout<<"Cannot write the dimensions, since the data to write is not valid as dimensions!!!"<<std::endl;
+      std::cout<<"not valid data!"<<std::endl;
     }
   }
 
