@@ -30,10 +30,11 @@ class volField
         const boundaryField<T>* getBoundaryField() const;
 
         // Read/write functions
-        void read(std::string);
-        void write(std::string);
-        void readHeader(std::string);
-        void writeHeader(std::string);
+        void read(std::string, std::string);
+        void write(std::string, std::string);
+        void readHeader(std::string, std::string);
+        void writeHeader(std::string, std::string);
+        void writeDimensions(std::string, std::string);
 
         // Useful functions
         // ???
