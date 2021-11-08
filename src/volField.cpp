@@ -56,7 +56,11 @@ void volField<T>::readHeader(std::string path, std::string filename)
 template <typename T>
 void volField<T>::writeHeader(std::string path, std::string filename)
 {
-      // TO DO: write back header to a file
+      // TO DO: write back header to a file    
+    std::cout<<'{'<<std::endl;
+    std::cout<<"typeName"<<std::endl;
+    std::cout<<'\t'<< typeName.name()<<std::endl;
+    std::cout<<"\t;"<<std::endl;
 }
 
 // Useful functions
