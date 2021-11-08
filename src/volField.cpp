@@ -60,7 +60,7 @@ void volField<T>::writeHeader(std::string path, std::string filename)
     std::cout<<'{'<<std::endl;
     std::cout<<"\tclass\t\t"<<type_<<';'<<std::endl;
     std::cout<<"\tobject\t\t"<<name_<<";"<<std::endl;
-    std::cout<<"\t;"<<std::endl;
+    std::cout<<'}'<<std::endl;
     std::cout<<"// ************************************************************************* //\n"<< std::endl;
 }
 
