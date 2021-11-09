@@ -14,14 +14,13 @@
 #include "Cell.h"
 #include "Patch.h"
 #include "findFiles.h"
-#include "RunTime.h"
 
 class Mesh {
 
 public:
 
   // Constructor
-  Mesh(RunTime& time);
+  Mesh();
 
   // Destructor
   virtual ~Mesh(){};
@@ -45,8 +44,6 @@ public:
   unsigned int nCells_;
 
   unsigned int nPatches_;
-
-  const RunTime& runTime() const;
 
 private:
 

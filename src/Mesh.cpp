@@ -1,14 +1,13 @@
 #include "Mesh.h"
 
 
-Mesh::Mesh(RunTime& time)
+Mesh::Mesh()
 : nPoints_(0),
   nFaces_(0),
   nInteriorFaces_(0),
   nBoundaryFaces_(0),
   nCells_(0),
-  nPatches_(0),
-  runTime_(time)
+  nPatches_(0)
 { 
   readMesh();
 }
@@ -480,10 +479,6 @@ void Mesh::readBoundary(std::string path)
   in_file.close();
 }
 
-const RunTime& Mesh::runTime() const
-{
-  return runTime_;
-}
 
 
 

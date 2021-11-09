@@ -27,7 +27,7 @@ int main()
     
     RunTime time;
 
-    Mesh polyMesh(time);
+    Mesh polyMesh;
     
     
     volField<double> p ("p", polyMesh, time);
@@ -58,6 +58,7 @@ int main()
 
     std::cout << "Current path is : " << time.Path() << std::endl;
 
+    volField<vectorField> U("U", polyMesh, time);
 
     return 0;
 }

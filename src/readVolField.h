@@ -21,6 +21,20 @@ vector3 volField<vectorField>::readData(std::ifstream& in_file, std::istringstre
     return this->readVectorTensorData<vector3>(in_file, iss, line, lineCounter);
 }
 
+template <>
+template <>
+symmTensor volField<symmTensorField>::readData(std::ifstream &in_file, std::istringstream &iss, std::string &line, int &lineCounter)
+{
+    return this->readVectorTensorData<symmTensor>(in_file, iss, line, lineCounter);
+}
+
+template <>
+template <>
+tensor volField<tensorField>::readData(std::ifstream &in_file, std::istringstream &iss, std::string &line, int &lineCounter)
+{
+    return this->readVectorTensorData<tensor>(in_file, iss, line, lineCounter);
+}
+
 template< typename vectorType>
 vectorType volField<vectorType>::readInternalField()
 {
