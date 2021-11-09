@@ -127,7 +127,8 @@ inline scalarField pow(const scalarField& v1, const int n)
    return result;
 }
 
-inline double maxScalarField(const scalarField& v1)
+//return the maximum of the scalarField
+inline double maxField(const scalarField& v1)
 {   
    
    double result = v1[0];
@@ -139,7 +140,8 @@ inline double maxScalarField(const scalarField& v1)
    return result;
 }
 
-inline double minScalarField(const scalarField& v1)
+//return the minimum of the scalarField
+inline double minField(const scalarField& v1)
 {   
    
    double result = v1[0];
@@ -147,19 +149,6 @@ inline double minScalarField(const scalarField& v1)
    for(unsigned int i = 1 ; i < v1.size(); i++)
    {
         result = std::min(v1[i], result);
-   }
-   return result;
-}
-
-
-inline scalarField mag(const scalarField& v1)
-{   
-   
-   scalarField result(v1.size());
-   
-   for(unsigned int i = 1 ; i < v1.size(); i++)
-   {
-        result[i] = std::abs(v1[i]);
    }
    return result;
 }

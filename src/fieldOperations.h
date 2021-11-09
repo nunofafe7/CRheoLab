@@ -64,7 +64,7 @@ inline volField<T> operator+(const volField<T> & vf1, const volField<T> & vf2)
     
     // ToDo -> apply just if the boundary value is imposed
     for(unsigned int i = 0 ; i < mesh_.nPatches_; i++){
-        result.boundaryField_[i] = vf1.boundaryField_[i] + vf2.boundaryField_[i]       
+        result.boundaryField_[i] = vf1.boundaryField_[i].fieldValue + vf2.boundaryField_[i].fieldValue        
     }    
 
     return result;
@@ -80,15 +80,15 @@ inline volField<T> operator-(const volField<T> & vf1, const volField<T> & vf2)
     
     // ToDO -> apply just if the boundary value is imposed
     for(unsigned int i = 0 ; i < mesh_.nPatches_; i++){
-        result.boundaryField_[i] = vf1.boundaryField_[i] - vf2.boundaryField_[i]       
+        result.boundaryField_[i] = vf1.boundaryField_[i].fieldValue - vf2.boundaryField_[i].fieldValue        
     }    
 
     return result;
 }
 
-// ATENTION -> all next func may be declared as member functions (like readVolField.h)
-
-// Shift volFiel by a quantity, apply just if the boundary value is imposed
+///////////////////////////////
+// volumeField Class methods //
+///////////////////////////////
 template< typename vectorType>
 void volField<vectorType>::shiftField(const vectorType& shiftQuantity)
 {   
@@ -106,7 +106,6 @@ void volField<vectorType>::shiftField(const vectorType& shiftQuantity)
     }     
 }
 
-// Scale volFiel by a quantity, apply just if the boundary value is imposed
 template< typename vectorType>
 void volField<vectorType>::scaleField(const double scaleQuantity)
 {   
@@ -127,34 +126,50 @@ void volField<vectorType>::scaleField(const double scaleQuantity)
 template< typename vectorType>
 void volField<vectorType>::shiftMaxField()
 {
-    double maxField;
-    // New operation defined into scalarOperations.h 
-    // inline double maxScalarField(const scalarField& v1)
-    // inline scalarField mag(const scalarField& v1)    
-    // ToDo create mag function for tensor field in tensor operations (do it by calculating invariants of the tensor, I1, I2, I3, and magnitude is I2)
-    // if type or define mag func for scalar    
-    maxField = maxScalarField(mag(internalField)) // scalar nao correr, vector ok, tensor magnitude not defined yet
-    boundaryField_));
-    shiftField(max);
+    vectorType maxFieldValue;
+    // New operations defined into scalarOperations.h 
+        // inline double maxField(const scalarField& v1)
+    // New operations defined into vectorOperations.h 
+        // inline vector3 maxField(const vectorField& v1)
+    // New operations defined into tensorOperations.h 
+        // inline tensor maxField(const tensorField& t1)
+    vectorType maxInFieldValue = maxField(internalField); 
+    vectorType maxBndFieldValue = maxInFieldValue;
+    vectorType maxFieldValue = maxInFieldValue;
+    // ToDO -> apply just if the boundary value is imposed 
+    maxBndFieldValue = maxField(boundarylField_);
+    if (maxBndFieldValue > maxInFieldValue) maxFieldValue=maxBndFieldValue;
+    shiftField(maxFieldValue);
 }
 
 // shift min field
 template< typename vectorType>
 void volField<vectorType>::shiftMinField()
 {
-    // New operation defined into scalarOperations.h 
-    // inline double minScalarField(const scalarField& v1)
-    vectorType min = minScalarField(internalField, boundaryField_);
-    shiftField(min);
+    vectorType minFieldValue;
+    // New operations defined into scalarOperations.h 
+        // inline double minField(const scalarField& v1)
+    // New operations defined into vectorOperations.h 
+        // inline vector3 minField(const vectorField& v1)
+    // New operations defined into tensorOperations.h 
+        // inline tensor minField(const tensorField& t1)
+    vectorType minInFieldValue = minField(internalField); 
+    vectorType minBndFieldValue = minInFieldValue;
+    vectorType minFieldValue = minInFieldValue;
+    // ToDO -> apply just if the boundary value is imposed 
+    minBndFieldValue = minField(boundarylField_);
+    if (minBndFieldValue > minInFieldValue) minFieldValue=minBndFieldValue;
+    shiftField(minFieldValue);
 }
 
 // project field
 template< typename vectorType>
 void volField<vectorType>::projectField(const vector3& projectVector)
 {   
+    // ToDO -> apply just if the volumeField is of type vector3 
     
     vector3 normProjectVector = projectVector / mag(projectVector);
-    // New operation defined into vectorOperation.h 
+    // New operation defined into vectorOperations.h 
     // inline vectorField operator*( const scalarField& s1, const vector3& v1)
     // inline scalarField operator&(const vectorField& v1, const vector3& v2)
     internalField = (internalField & normProjectVector) * normProjectVector;

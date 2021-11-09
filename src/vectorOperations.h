@@ -42,6 +42,18 @@ inline std::ostream& operator<<(std::ostream& os, const vector3& v)
 
 // At the vector level
 
+// Larger than
+inline bool operator>(const vector3& v1, const vector3& v2)
+{
+   return (mag(v1)>mag(v2));
+}
+
+// Smaller than
+inline bool operator<(const vector3& v1, const vector3& v2)
+{
+   return (mag(v1)<mag(v2));
+}
+
 // Summation
 inline vector3 operator+(const vector3& v1, const vector3& v2)
 {
@@ -165,6 +177,7 @@ inline vector3 operator^(const vector3& v1, const vector3& v2)
 
 
 // At the field level
+
 inline vectorField operator*(const vectorField& v1, const double& d1)
 {
     vectorField result(v1.size());
@@ -365,4 +378,34 @@ vectorField unitVector(const vectorField& v1)
    return result;
 }
 */
+
+//return the maximum of the vectorField
+// define new functions in vectorOperations.h
+// inline bool operator>(const vector3& v1, const vector3& v2)
+// inline bool operator<(const vector3& v1, const vector3& v2)
+inline vector3 maxField(const vectorField& v1)
+{   
+   
+   vector3 result = v1[0];
+   
+   for(unsigned int i = 1 ; i < v1.size(); i++)
+   {
+        if (v1[i] > result) result=v1[i];
+   }
+   return result;
+}
+
+//return the minimum of the scalarField
+inline vector3 minField(const vectorField& v1)
+{   
+   
+   vector3 result = v1[0];
+   
+   for(unsigned int i = 1 ; i < v1.size(); i++)
+   {
+        if (v1[i] < result) result=v1[i];
+   }
+   return result;
+}
+
 #endif

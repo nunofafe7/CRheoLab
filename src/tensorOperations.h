@@ -40,7 +40,19 @@ inline std::ostream& operator<<(std::ostream& os, const tensor& t)
 
 // Math Operations
 
-// At the vector level
+// At the tensor level
+
+// Larger than
+inline bool operator>(const tensor& t1, const tensor& t2)
+{
+   return (I2(t1)>I2(t2));
+}
+
+// Smaller than
+inline bool operator<(const tensor& t1, const tensor& t2)
+{
+   return (I2(t1)<I2(t2));
+}
 
 // Summation
 inline tensor operator+(const tensor& t1, const tensor& t2)
@@ -116,6 +128,36 @@ inline tensor  operator/(const double& d1, const tensor& t1)
     {
         result[i] = d1 / t1[i];
     }
+   return result;
+}
+
+// First Invariant T11+T22+T33
+inline double I1(const tensor& t)
+{
+   double result;
+
+   result= t[0]+t[4]+t[8];
+
+   return result;
+}
+
+// Second Invariant T11*T22+T11*T33+T22*T33-T12*T21-T23*T32-T13*T31
+inline double I2(const tensor& t)
+{
+   double result;
+
+   result= t[0]*t[4]+t[0]*t[8]+t[8]*t[4]-t[1]*t[3]-t[5]*t[7]-t[2]*t[6];
+
+   return result;
+}
+
+// Third Invariant -T13*T22*T31+T12*T23*T31+T13*T21*T32-T11*T23*T32-T12*T21*T33+T11*T22*T33
+inline double I3(const tensor& t)
+{
+   double result;
+
+   result= -t[2]*t[4]*t[6] + t[1]*t[5]*t[6] + t[2]*t[3]*t[7] - t[0]*t[5]*t[7] - t[1]*t[3]*t[8] + t[0]*t[4]*t[8];
+
    return result;
 }
 
@@ -223,4 +265,37 @@ inline tensorField operator/(const scalarField& s1, const tensorField& t1)
 
     return result;
 }
+
+
+//return the maximum of the tensorField
+// define new functions in tensorOperations.h
+// inline bool operator>(const tensor& t1, const tensor& t2)
+
+inline tensor maxField(const tensorField& t1)
+{   
+   
+   tensor result = t1[0];
+   
+   for(unsigned int i = 1 ; i < t1.size(); i++)
+   {
+        if (t1[i] > result) result=t1[i];
+   }
+   return result;
+}
+
+//return the minimum of the tensorField
+// define new functions in tensorOperations.h
+// inline bool operator<(const tensor& t1, const tensor& t2)
+inline tensor minField(const tensorField& t1)
+{   
+   
+   tensor result = t1[0];
+   
+   for(unsigned int i = 1 ; i < t1.size(); i++)
+   {
+        if (t1[i] < result) result=t1[i];
+   }
+   return result;
+}
+
 #endif
