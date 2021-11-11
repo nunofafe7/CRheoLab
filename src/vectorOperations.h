@@ -42,18 +42,6 @@ inline std::ostream& operator<<(std::ostream& os, const vector3& v)
 
 // At the vector level
 
-// Larger than
-inline bool operator>(const vector3& v1, const vector3& v2)
-{
-   return (mag(v1)>mag(v2));
-}
-
-// Smaller than
-inline bool operator<(const vector3& v1, const vector3& v2)
-{
-   return (mag(v1)<mag(v2));
-}
-
 // Summation
 inline vector3 operator+(const vector3& v1, const vector3& v2)
 {
@@ -365,6 +353,18 @@ inline scalarField magSqr(const vectorField& v1)
     //result = sqr(mag(v1));
 
    return result;
+}
+
+// Larger than
+inline bool operator>(const vector3& v1, const vector3& v2)
+{
+   return (mag(v1)>mag(v2));
+}
+
+// Smaller than
+inline bool operator<(const vector3& v1, const vector3& v2)
+{
+   return (mag(v1)<mag(v2));
 }
 
 /*
