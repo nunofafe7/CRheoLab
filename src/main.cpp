@@ -30,21 +30,21 @@ int main()
     Mesh polyMesh;
     
     
-    volField<double> p ("p", polyMesh, time);
-    volField<double> p1 ("p1", polyMesh, time);
-    volField<double> resultp ("resultp", polyMesh, time);
+    //volField<double> p ("p", polyMesh, time);
+    //volField<double> p1 ("p1", polyMesh, time);
+    //volField<double> resultp ("resultp", polyMesh, time);
 
-    volField<vector3> U ("U", polyMesh, time);
-    volField<vector3> U1 ("U1", polyMesh, time);   
-    volField<vector3> resultU ("resultU", polyMesh, time);
+    //volField<vector3> U ("U", polyMesh, time);
+    //volField<vector3> U1 ("U1", polyMesh, time);   
+    //volField<vector3> resultU ("resultU", polyMesh, time);
 
     
 
     // shift field
-    p.shiftField(5);
+    //p.shiftField(5);
 
     // scale field
-    p.scaleField(10);
+    //p.scaleField(10);
 
     // sum two scalarfields
     //resultp = p+p1;
