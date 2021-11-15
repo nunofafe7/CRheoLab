@@ -9,6 +9,9 @@ volField<T>::volField(std::string path, std::string filename, const Mesh& refMes
 
       // Set reference mesh
       refMesh_ = &refMesh;
+      
+      // initialize IODictionary
+      dict_ = IODictionary (path, fileName);
 
       // Read volume field
       read(path, filename);
@@ -19,7 +22,10 @@ template <typename T>
 void volField<T>::read(std::string path, std::string filename)
 {
       // Read header
-      readHeader(path, filename);
+      dict_.readHeader(path, filename);
+   
+      // Read dimensions
+      readDimensions(path, filename);
 
       // Read internal field
       internalField_.read(path, filename);
@@ -33,7 +39,10 @@ template <typename T>
 void volField<T>::write(std::string path, std::string filename)
 {
       // Write header
-      writeHeader(path, filename);
+      dict_.writeHeader(path, filename);
+      
+      // Write Dimensions
+      writeDimensions(path, fileName);
 
       // Write internalField
       internalField_.write(path, filename);
@@ -42,29 +51,7 @@ void volField<T>::write(std::string path, std::string filename)
       boundaryField_.write(path, filename);
 }
 
-// Read header of volume field file
-template <typename T>
-void volField<T>::readHeader(std::string path, std::string filename)
-{
-      // TO DO: read header to get name, type and dimensions of volume field
-      name_ = ???;
-      type_ = ???;
-      dimensions_ = ???;
-}
-
-// Write header of volume field file
-template <typename T>
-void volField<T>::writeHeader(std::string path, std::string filename)
-{
-      // TO DO: write back header to a file    
-    std::cout<<'{'<<std::endl;
-    std::cout<<"\tclass\t\t"<<type_<<';'<<std::endl;
-    std::cout<<"\tobject\t\t"<<name_<<";"<<std::endl;
-    std::cout<<'}'<<std::endl;
-    std::cout<<"// ************************************************************************* //\n"<< std::endl;
-}
-
-//dimensions
+//write dimensions
 template <typename T>
 void volField<T>::writeDimensions(std::string path, std::string filename)
  {
