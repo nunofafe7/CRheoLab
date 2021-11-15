@@ -33,9 +33,9 @@ class volField
         // Read/write functions
         void read(std::string, std::string);
         void write(std::string, std::string);
-        void writeHeader(std::string, std::string);
+        void readDimensions(std::string, std::string);   
         void writeDimensions(std::string, std::string);
-
+ 
         // Useful functions
         // ???
 
