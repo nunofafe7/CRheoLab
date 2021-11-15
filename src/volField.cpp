@@ -86,7 +86,7 @@ void volField<vectorType>::shiftMinField()
 
 // project vector field
 template< typename vectorType>
-void volField<vectorType>::projectField(const vector3& projectVector)
+void volField<vectorType>::projectVectorField(const vector3& projectVector)
 {   
 
     if (typeid(internalField).hash_code()==typeid(projectVector).hash_code()) {

@@ -38,11 +38,12 @@ class volField
         void scaleField(const double& scaleQuantity);
         void shiftMaxField();
         void shiftMinField();        
-        void projectField(const vector3& projectVector);
+        void projectVectorField(const vector3& projectVector);
+        vectorField projectTensorField(const vector3& projectVector);
         scalarField I1ofTensor();
         scalarField I2ofTensor();
         scalarField I3ofTensor();
-        vectorField projectTensorField(const vector3& v1);
+        
         
         // Read Data
         template <typename primitiveType>
