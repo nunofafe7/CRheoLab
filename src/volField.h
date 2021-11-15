@@ -2,6 +2,7 @@
 #define VOLFIELD_H
 
 #include "Mesh.h"
+#include "IODictionary.h"
 //#include "internalField.h"
 //#include "boundaryField.h"
 
@@ -32,7 +33,6 @@ class volField
         // Read/write functions
         void read(std::string, std::string);
         void write(std::string, std::string);
-        void readHeader(std::string, std::string);
         void writeHeader(std::string, std::string);
         void writeDimensions(std::string, std::string);
 
@@ -46,14 +46,7 @@ class volField
         // Reference mesh
         Mesh* refMesh_;
 
-        // Path
-        std::string path_;
-
-        // Name
-        std::string name_;
-
-        // Type of data (scalar, vector or tensor)
-        std::string type_;
+        IODictionary dict_;
 
         // Dimensions
         std::vector<int> dimensions_(7);
