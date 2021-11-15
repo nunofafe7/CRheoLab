@@ -3,16 +3,22 @@
 template< typename vectorType>
 volField<vectorType>::volField(std::string fileName, const Mesh& mesh, const RunTime& time)
 :
-    IODictionary(mesh.runTime().Path(), fileName),
+    IODictionary(time.Path(), fileName),
     mesh_(mesh),
     runTime_(time),
-    internalField( readInternalField() )
+    internalField(readInternalField()),
+    fieldName_(fileName) 
 {   
+    // read boundary field
    for(unsigned int i = 0 ; i < mesh_.nPatches_; i++){
-        boundaryField_.push_back(readBoundaryField(mesh_.patchList_[i].name_);
+        boundaryField_.push_back(readBoundaryField(mesh_.patchList_[i].name_));
     } 
 }
 
+//no args constructor
+template< typename vectorType>
+volField<vectorType>::volField()
+{ }
 
 #include "readVolField.h"
-#include "fieldOperations.h" //pc
+#include "fieldOperations.h"

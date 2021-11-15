@@ -53,6 +53,7 @@ class Face
         
         void computeIntersectionPoint();
         
+        /// @brief Computes the cell Skewness
         void computeSkewness();
 
         // Write to stream
@@ -82,7 +83,7 @@ class Face
         // Non-orthogonality angle
         double nonOrthogonalityAngle_;
 
-        // Face Skewness
+        /// Cell Skewness
         double skewness_;
 
         // Intersection point (IP)

@@ -1,7 +1,7 @@
 #ifndef MATHOPERATIONS_H
 #define MATHOPERATIONS_H
 #include<vector>
-#include <array>
+#include<array>
 
 
 typedef std::array<double, 3>   vector3;
@@ -20,6 +20,7 @@ typedef std::vector<tensor>     tensorField;
 #include "scalarOperations.h"
 #include "vectorOperations.h"
 #include "tensorOperations.h"
+#include "symmTensorOperations.h"
 #endif
 
 

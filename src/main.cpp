@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Mesh.h"
 #include "IODictionaryI.h"
-#include "volFieldI.h"
+#include "volField.h"
 
 //  void write_csv(std::string filename, std::string , std::vector<double> );
 
@@ -47,8 +47,8 @@ int main()
     p.scaleField(10);
 
     // sum two scalarfields
-    resultp = p+p1;
-    resultU = U+U1;
+    //resultp = p+p1;
+    //resultU = U+U1;
    // volField<vectorField> U ("U", polyMesh);
 
     std::cout << "Current path is : " << time.Path() << std::endl;
@@ -58,7 +58,7 @@ int main()
 
     std::cout << "Current path is : " << time.Path() << std::endl;
 
-    volField<vectorField> U("U", polyMesh, time);
+    //volField<vectorField> U("U", polyMesh, time);
 
     return 0;
 }
