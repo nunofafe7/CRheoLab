@@ -29,6 +29,9 @@ class volField
         // No args constructor
         volField();
 
+        //Copy constructor
+        volField(const const volField<vectorType> &volFieldBase);
+
         // Destructor
         virtual ~volField(){} ;
 
@@ -44,6 +47,7 @@ class volField
         scalarField I2ofTensor();
         scalarField I3ofTensor();
         
+
         
         // Read Data
         template <typename primitiveType>

@@ -72,8 +72,6 @@ inline double I3(const tensor& t)
    return result;
 }
 
-
-
 // Larger than
 inline bool operator>(const tensor& t1, const tensor& t2)
 {

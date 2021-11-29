@@ -20,5 +20,13 @@ template< typename vectorType>
 volField<vectorType>::volField()
 { }
 
+//copy constructor
+template< typename vectorType>
+volField<vectorType>::volField(const volField<vectorType> &volFieldBase)
+{ 
+ //TODO CReate a copy contructor
+}
+
 #include "readVolField.h"
 #include "fieldOperations.h"
+#include "volFieldOperations.h"
