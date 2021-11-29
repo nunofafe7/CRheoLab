@@ -8,7 +8,7 @@ volField<vectorType> operator+(const volField<vectorType> & volF, const vectorTy
     //Create a copy of volF
     volField<vectorType> resVolField(volF);
 
-    result.fieldName_=resVolField.fieldName_+"shiftedSum"
+    resVolField.fieldName_=resVolField.fieldName_+"shiftedSum"
 
     for(unsigned int i = 0 ; i < resVolField.internalField.size(); i++){
          resVolField.internalField[i] = resVolField.internalField[i] + v2;    
@@ -33,7 +33,7 @@ volField<vectorType> operator-(const volField<vectorType> & volF, const vectorTy
     //Create a copy of volF
     volField<vectorType> resVolField(volF);
 
-    result.fieldName_=resVolField.fieldName_+"shiftedSub"
+    resVolField.fieldName_=resVolField.fieldName_+"shiftedSub"
 
     for(unsigned int i = 0 ; i < resVolField.internalField.size(); i++){
          resVolField.internalField[i] = resVolField.internalField[i] - v2;    
@@ -57,7 +57,7 @@ volField<vectorType> operator*(const volField<vectorType> & volF, const double s
     //Create a copy of volF
     volField<vectorType> resVolField(volF);
 
-    result.fieldName_=resVolField.fieldName_+"scaled"
+    resVolField.fieldName_=resVolField.fieldName_+"scaled"
 
     for(unsigned int i = 0 ; i < resVolField.internalField.size(); i++){
          resVolField.internalField[i] = resVolField.internalField[i]*scaleFactor;    
