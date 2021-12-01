@@ -1,3 +1,8 @@
+#ifndef VOLFIELDI_H
+#define VOLFIELDI_H
+
+#include "volField.h"
+
 template< typename vectorType>
 volField<vectorType>::volField(std::string fileName, const Mesh& mesh, const RunTime& time)
 :
@@ -277,3 +282,5 @@ vectorField volField<vectorType>::projectTensorField(const vector3& v1)
 #include "readVolField.h"
 #include "fieldOperations.h"
 #include "volFieldOperations.h"
+
+#endif

@@ -1,5 +1,5 @@
-
-#include "volField.h"
+#ifndef VOLFIELDOPERATIONS_H
+#define VOLFIELDOPERATIONS_H
 
 //Sumation
 template< typename vectorType>
@@ -73,3 +73,5 @@ volField<vectorType> operator*(const volField<vectorType> & volF, const double s
 
     return resVolField;
 }
+
+#endif

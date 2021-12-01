@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Mesh.h"
 #include "IODictionaryI.h"
-#include "volField.h"
+#include "volFieldI.h"
 
 //  void write_csv(std::string filename, std::string , std::vector<double> );
 
@@ -30,7 +30,7 @@ int main()
     Mesh polyMesh;
     
     
-    volField<double> p ("p", polyMesh, time);
+    //volField<double> p ("p", polyMesh, time);
     //volField<double> p1 ("p1", polyMesh, time);
     //volField<double> resultp ("resultp", polyMesh, time);
 

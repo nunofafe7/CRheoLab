@@ -163,7 +163,7 @@ inline tensor  operator/(const double& d1, const tensor& t1)
 
 //storage 0-T11, 1-T12, 2-T13, 3-T21, 4-T22, 5-T23, 6-T31, 7-T32, 8-T33
 // tensor vector3 product
-vector3 operator&(const tensor& t1, const vector3& v1)
+/*vector3 operator&(const tensor& t1, const vector3& v1)
 {  
    vector3 result;
 
@@ -172,7 +172,7 @@ vector3 operator&(const tensor& t1, const vector3& v1)
    result[2] = t1[6]*v1[0]+ t1[7]*v1[1]+t1[8]*v1[2];
 
    return result;
-}
+}*/
 
 
 // At the field level
