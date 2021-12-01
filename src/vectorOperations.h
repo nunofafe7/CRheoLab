@@ -279,13 +279,13 @@ inline vectorField operator/(const scalarField& s1, const vectorField& v1)
     return result;
 }
 
-inline scalarField operator&(const vectorField& v1, const vector3& v2)
+inline scalarField operator&(const vectorField& vf1, const vector3& v2)
 {
-    scalarField result(v1.size());
+    scalarField result(vf1.size());
 
-    for(unsigned int i = 0 ; i < v1.size(); i++)
+    for(unsigned int i = 0 ; i < vf1.size(); i++)
     {
-        result[i] = v1[i] & v2;
+        result[i] = vf1[i] & v2;
     }
 
     return result;

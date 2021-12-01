@@ -167,7 +167,7 @@ inline symmTensor  operator/(const double& d1, const symmTensor& t1)
 
 //storage 0-T11, 1-T12, 2-T13, 3-T22, 4-T23, 5-T33
 // symmTensor vector3 product
-vector3 operator&(const symmTensor& t1, const vector3& v1)
+/* vector3 operator&(const symmTensor& t1, const vector3& v1)
 {  
    vector3 result;
 
@@ -176,7 +176,7 @@ vector3 operator&(const symmTensor& t1, const vector3& v1)
    result[2] = t1[2]*v1[0]+ t1[4]*v1[1]+t1[5]*v1[2];
 
    return result;
-}
+} */
 
 // At the field level
 

@@ -30,7 +30,7 @@ int main()
     Mesh polyMesh;
     
     
-    //volField<double> p ("p", polyMesh, time);
+    volField<double> p ("p", polyMesh, time);
     //volField<double> p1 ("p1", polyMesh, time);
     //volField<double> resultp ("resultp", polyMesh, time);
 

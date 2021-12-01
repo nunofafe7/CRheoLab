@@ -30,7 +30,7 @@ class volField
         volField();
 
         //Copy constructor
-        volField(const const volField<vectorType> &volFieldBase);
+        volField(const volField<vectorType> &volFieldBase);
 
         // Destructor
         virtual ~volField(){} ;
@@ -73,5 +73,7 @@ class volField
         std::vector<patchBoundaryConditions> boundaryField_;
            
 };
+
+#include "volFieldI.h"
 
 #endif 
