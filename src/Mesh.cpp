@@ -457,7 +457,7 @@ void Mesh::readBoundary(std::string path)
         }  
       }
 
-      patchList_.push_back(Patch(name,type, nFaces,startFace)); //add a Patch object to the list
+      patchList_.push_back(Patch(name,type, nFaces,startFace, i)); //add a Patch object to the list
 
       checkBoundaryName = false;
       checkType = false;
