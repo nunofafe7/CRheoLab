@@ -40,11 +40,12 @@ tensor Boundary<tensorField>::readData(std::ifstream &in_file, std::istringstrea
 
 
 template <typename vectorType>
-typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::readBoundaryField(const std::string& patchName)
+void Boundary<vectorType>::readBoundaryPatch(const std::string& patchName)
 {
  
     // Create structure to store information
-    patchBoundaryConditions store;
+    // patchBoundaryDefinitions store;
+    this->uniformField_=true;
   
     // File location path
     std::string fileLocation = this->Path() + this->Name();
@@ -123,7 +124,7 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
                             line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
 
                             // Store information into structure
-                            store.type = line;
+                            this->type_ = line;
 
                             // Get new line
                             newLineAndUpdateSStream(in_file, iss, line, lineCounter);
@@ -148,7 +149,7 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
                             }
 
                             // store information in structure
-                            store.otherInfo.insert ( std::pair<std::string, std::string>(tmp[0] ,tmp[1] ) );
+                            this->otherInfo_.insert ( std::pair<std::string, std::string>(tmp[0] ,tmp[1] ) );
                             
                             // Get new line
                             //newLineAndUpdateSStream(in_file, iss, line, lineCounter);
@@ -159,7 +160,6 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
                         {
                             if (checkExactMatch(line, "uniform"))
                             {
-                                
                                 checkSemiColon(in_file, line, lineCounter);
 
                                 // Strips the string from uniform onwards
@@ -175,7 +175,7 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
                                 dataToVector = readData<typename vectorType::value_type>(in_file,iss, line, lineCounter);
 
                                 // Push data to vector
-                                store.fieldValue.push_back(dataToVector);
+                                this->definedValues_.push_back(dataToVector);
 
                                 // Get new line
                                 //newLineAndUpdateSStream(in_file, iss, line, lineCounter);
@@ -183,6 +183,8 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
                             } // If the internalField is non-uniform
                             else if (checkExactMatch(line, "nonuniform")) 
                             {
+                                this->uniformField_=false;
+
                                 newLineAndUpdateSStream(in_file, iss, line, lineCounter);
 
                                 // Variable to store the number of points in the field
@@ -203,7 +205,7 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
                                 readCharacter(in_file, iss, '(', lineCounter);   
 
                                 // Resize the vector to accomudade the incoming data
-                                store.fieldValue.resize(nPointsInNonUniformField);
+                                this->definedValues_.resize(nPointsInNonUniformField);
 
                                 // Loop to get the vector data
                                 // Loop counter integer 
@@ -213,7 +215,7 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
                                 {
                                     newLineAndUpdateSStream(in_file, iss, line, lineCounter);
 
-                                    store.fieldValue[i] = readData<typename vectorType::value_type>(in_file, iss, line, lineCounter);
+                                    this->definedValues_[i] = readData<typename vectorType::value_type>(in_file, iss, line, lineCounter);
 
                                     i++;
                                 }
@@ -258,7 +260,7 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
                 errorMessage(in_file, message, 0, true);
             }
 
-            if (store.type.empty() || (store.fieldValue.size()==0 && ( (store.type != "empty") && (store.type != "zeroGradient")) ))
+            if (this->type_.empty() || (this->definedValues_.size()==0 && ( (this->type_ != "empty") && (this->type_ != "symmetry")) ))
             {
                 std::string message = "Problem in patch " + patchName ;
                 errorMessage(in_file, message, 0, true);
@@ -336,5 +338,4 @@ typename Boundary<vectorType>::patchBoundaryConditions Boundary<vectorType>::rea
     // Close the file
     in_file.close();
 
-    return store;
 }
