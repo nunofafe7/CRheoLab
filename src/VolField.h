@@ -3,7 +3,7 @@
 
 #include "IODictionary.h"
 #include "RunTime.h"
-#include "boundaryI.h"
+#include "BoundaryField.h"
 
 typedef std::array<double, 3> vector3;
 typedef std::array<double, 6> symmTensor;
@@ -15,17 +15,20 @@ typedef std::vector<symmTensor> symmTensorField;
 typedef std::vector<tensor> tensorField;
 
 template< typename vectorType>
-class volField
+class VolField
 :
     public IODictionary
 {
     public:
 
         // Default constructor
-        volField(std::string fileName, const Mesh& mesh, const RunTime& time, fileAction action);
+        VolField(std::string fileName, const Mesh& mesh, const RunTime& time, fileAction action);
+
+        // Constructor with a default value passed by argument
+        VolField(std::string fileName, const Mesh& mesh, const RunTime& time, fileAction action, const typename vectorType::value_type& defaultValue);
 
         // Destructor
-        virtual ~volField(){} ;
+        virtual ~VolField(){} ;
 
         // Member Functions
         vectorType readInternalField();
@@ -35,17 +38,17 @@ class volField
         primitiveType readData(std::ifstream& in_file, std::istringstream& iss, std::string& line, int& lineCounter);
 
         // Give access to the boundary entities
-        std::vector<Boundary<vectorType>>& boundaryField();
+        BoundaryField<vectorType>& boundaryField();
 
     private:
         const Mesh& mesh_;
         const RunTime& runTime_;
         vectorType internalField_;
-        std::vector<Boundary<vectorType>> boundaryField_;
+        BoundaryField<vectorType> boundaryField_;
         fileAction action_;
 
 };
 
-#include "volFieldI.h"
+#include "VolFieldI.h"
 
 #endif
