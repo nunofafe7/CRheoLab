@@ -1,14 +1,14 @@
 
 template <typename vectorType>
 template <typename primitiveType>
-primitiveType volField<vectorType>::readData(std::ifstream& in_file, std::istringstream& iss, std::string& line, int& lineCounter)
+primitiveType VolField<vectorType>::readData(std::ifstream& in_file, std::istringstream& iss, std::string& line, int& lineCounter)
 {
     throw std::runtime_error("Not implemented");
 }
 
 template <>
 template <>
-double volField<scalarField>::readData(std::ifstream& in_file, std::istringstream& iss, std::string& line, int& lineCounter)
+double VolField<scalarField>::readData(std::ifstream& in_file, std::istringstream& iss, std::string& line, int& lineCounter)
 {
     return this->readScalarData(in_file,iss,line, lineCounter);
 }
@@ -16,27 +16,27 @@ double volField<scalarField>::readData(std::ifstream& in_file, std::istringstrea
 
 template <>
 template <>
-vector3 volField<vectorField>::readData(std::ifstream& in_file, std::istringstream& iss, std::string& line, int& lineCounter)
+vector3 VolField<vectorField>::readData(std::ifstream& in_file, std::istringstream& iss, std::string& line, int& lineCounter)
 {
     return this->readVectorTensorData<vector3>(in_file, iss, line, lineCounter);
 }
 
 template <>
 template <>
-symmTensor volField<symmTensorField>::readData(std::ifstream &in_file, std::istringstream &iss, std::string &line, int &lineCounter)
+symmTensor VolField<symmTensorField>::readData(std::ifstream &in_file, std::istringstream &iss, std::string &line, int &lineCounter)
 {
     return this->readVectorTensorData<symmTensor>(in_file, iss, line, lineCounter);
 }
 
 template <>
 template <>
-tensor volField<tensorField>::readData(std::ifstream &in_file, std::istringstream &iss, std::string &line, int &lineCounter)
+tensor VolField<tensorField>::readData(std::ifstream &in_file, std::istringstream &iss, std::string &line, int &lineCounter)
 {
     return this->readVectorTensorData<tensor>(in_file, iss, line, lineCounter);
 }
 
 template< typename vectorType>
-vectorType volField<vectorType>::readInternalField()
+vectorType VolField<vectorType>::readInternalField()
 {
     // File location path
     std::string fileLocation = this->Path() + this->Name();
