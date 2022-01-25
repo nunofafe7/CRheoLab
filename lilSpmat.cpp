@@ -20,3 +20,80 @@ double lilSpmat::sparsity()
 {
   return 0.0;
 }
+
+
+//Conrado - Begin #############################################################
+
+// Function that returns the product matrix-vector as a vector
+std::vector<double> lilSpmat::matMul(const std::vector<double> &vecPhi)
+{
+  std::vector<double> v(vecPhi.size());
+  unsigned int id_column = 0;
+
+  //for(unsigned int i=0;i<spmat.getNumRows();i++)
+  for(unsigned int i=0;i<columns_.size();i++)
+  {
+    v[i] = 0.0;
+    
+    for(unsigned int j=0;j<columns_[i].size();j++)
+    {
+
+      id_column = columns_[i][j];
+      v[i] += values_[i][j] * vecPhi[id_column];
+
+    }
+  }
+
+  return v;
+}
+
+/*std::vector<double> lilSpmat::matMul(const std::vector<double> &vecPhi)
+{
+  //std::vector<double> v(vecPhi.size());
+  std::vector<double> v;
+  //v.reserve(vecPhi.size());
+  //v.resize(vecPhi.size());
+
+  unsigned int id_column = 0;
+
+  //for(unsigned int i=0;i<spmat.getNumRows();i++)
+  for(unsigned int i=0;i<columns_.size();i++)
+  {
+    //v[i] = 0.0;
+    double val = 0.0;
+
+    for(unsigned int j=0;j<columns_[i].size();j++)
+    {
+
+      id_column = columns_[i][j];
+
+      //v[i] += values_[i][j] * vecPhi[id_column];
+      val += values_[i][j] * vecPhi[id_column];
+
+    }
+    v.push_back(val);
+  }
+
+  return v;
+}*/
+
+double lilSpmat::vecMul(const unsigned int i, const std::vector<double> &vecPhi)
+{
+
+  double sumProdRow = 0.0;
+  unsigned int id_column = 0;
+
+  for(unsigned int j=0;j<columns_[i].size();j++)
+  {
+
+    id_column = columns_[i][j];
+
+    sumProdRow += values_[i][j] * vecPhi[id_column];
+
+  }
+
+  return sumProdRow;
+}
+
+
+//Conrado - End #############################################################

@@ -51,11 +51,15 @@ public:
   // Returns the sparse matrix in a dense format as a vector of vectors
   std::vector< std::vector<double> > dense();
 
+  //Conrado ##########################
   // Returns the product matrix-vector as a vector
-  std::vector<double> matMul(std::vector<double> v);
+  //std::vector<double> matMul(std::vector<double> &v);
+  std::vector<double> matMul(const std::vector<double> &vecPhi);
 
   // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
-  double vecMul(unsigned int i, std::vector<double> v);
+  //double vecMul(unsigned int i, std::vector<double> &v);
+  double vecMul(const unsigned int i, const std::vector<double> &vecPhi);
+
 
 };
 
