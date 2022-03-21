@@ -8,7 +8,7 @@ csrSpmat::csrSpmat(unsigned int numRows, unsigned int numCols, fvMesh mesh)
   // Store number of rows and columns
   numRows_ = numRows;
   numCols_ = numCols;
-
+  
 }
 
 // Returns the sparsity of the matrix
@@ -31,6 +31,12 @@ void csrSpmat::subValue(unsigned int i, unsigned int j, double val)
 
 // Deletes the value in position (i,j) if exists, otherwise does nothing
 void csrSpmat::delValue(unsigned int i, unsigned int j)
+{
+
+}
+
+// Returns the value in position (i,j) if exists, otherwise returns 0
+double lilSpmat::getValue(unsigned int i, unsigned int j);
 {
 
 }

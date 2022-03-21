@@ -19,67 +19,80 @@ lilSpmat::lilSpmat(unsigned int numRows, unsigned int numCols)
 // Returns the sparsity of the matrix
 double lilSpmat::sparsity()
 {
-  return 0.0;
+  unsigned int nz = 0;
+  for(unsigned int i=0;i< numRows_;i++) {
+     nz += columns_[i].size();
+  }
+  return (1.0 - ((double)nz / ((double)(numRows_ * numCols_))));
 }
 
 // Adds a value to position (i,j) if exists, otherwise inserts a new value
 void lilSpmat::addValue(unsigned int i, unsigned int j, double val)
 {
-      for(unsigned int k=0;k<columns_[i].size();k++)
-      {
-            if(columns_[i][k] == j)
-            {
-                  values_[i][k] += val;
-                  return;
-            }
-      }
-      columns_[i].push_back(j);
-      values_[i].push_back(val);
+  for(unsigned int k=0;k<columns_[i].size();k++)
+  {
+    if(columns_[i][k] == j)
+    {
+      values_[i][k] += val;
+      return;
+    }
+  }
+  columns_[i].push_back(j);
+  values_[i].push_back(val);
 }
 
 // Subtracts a value to position (i,j) if exists, otherwise inserts a new value
 void lilSpmat::subValue(unsigned int i, unsigned int j, double val)
 {
-      for(unsigned int k=0;k<columns_[i].size();k++)
-      {
-            if(columns_[i][k] == j)
-            {
-                  values_[i][k] -= val;
-                  return;
-            }
-      }
-      columns_[i].push_back(j);
-      values_[i].push_back(-val);
+  for(unsigned int k=0;k<columns_[i].size();k++)
+  {
+    if(columns_[i][k] == j)
+    {
+      values_[i][k] -= val;
+      return;
+    }
+  }
+  columns_[i].push_back(j);
+  values_[i].push_back(-val);
 }
 
 // Deletes the value in position (i,j) if exists, otherwise does nothing
 void lilSpmat::delValue(unsigned int i, unsigned int j)
 {
-      for(unsigned int k=0;k<columns_[i].size();k++)
-      {
-            if(columns_[i][k] == j)
-            {
-                  columns_[i].erase(columns_[i].begin()+k);
-                  values_[i].erase(values_[i].begin()+k);
-                  return;
-            }
-      }
+  for(unsigned int k=0;k<columns_[i].size();k++)
+  {
+    if(columns_[i][k] == j)
+    {
+      columns_[i].erase(columns_[i].begin()+k);
+      values_[i].erase(values_[i].begin()+k);
+      return;
+    }
+  }
+}
+
+// Returns the value in position (i,j) if exists, otherwise returns 0
+double lilSpmat::getValue(unsigned int i, unsigned int j);
+{
+  for(unsigned int k=0;k<columns_[i].size();k++)
+  {
+    if(columns_[i][k] == j)
+    {
+      return values_[i][k];
+    }
+  }
+  return 0.0;
 }
 
 // Returns the sparse matrix in a dense format as a vector of vectors
 std::vector< std::vector<double> > lilSpmat::dense()
 {
-
   std::vector< std::vector<double> > denseMatrix(numRows_);
   std::vector<double> temp(numCols_);
-
   unsigned int id_column = 0;
-
   for(unsigned int i=0;i<numRows_;i++)
   {
     denseMatrix[i] = temp;
   }
-
   for(unsigned int i=0;i<numRows_;i++)
   {
     for(unsigned int j=0;j<columns_[i].size();j++)
@@ -88,7 +101,6 @@ std::vector< std::vector<double> > lilSpmat::dense()
       denseMatrix[i][id_column] = values_[i][j];
     }
   }
-
   return denseMatrix;
 }
 
@@ -109,36 +121,6 @@ std::vector<double> lilSpmat::matMul(const std::vector<double> &vecPhi)
   return v;
 }
 
-/*std::vector<double> lilSpmat::matMul(const std::vector<double> &vecPhi)
-{
-  //std::vector<double> v(vecPhi.size());
-  std::vector<double> v;
-  //v.reserve(vecPhi.size());
-  //v.resize(vecPhi.size());
-
-  unsigned int id_column = 0;
-
-  //for(unsigned int i=0;i<spmat.getNumRows();i++)
-  for(unsigned int i=0;i<columns_.size();i++)
-  {
-    //v[i] = 0.0;
-    double val = 0.0;
-
-    for(unsigned int j=0;j<columns_[i].size();j++)
-    {
-
-      id_column = columns_[i][j];
-
-      //v[i] += values_[i][j] * vecPhi[id_column];
-      val += values_[i][j] * vecPhi[id_column];
-
-    }
-    v.push_back(val);
-  }
-
-  return v;
-}*/
-
 // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
 double lilSpmat::vecMul(const unsigned int i, const std::vector<double> &vecPhi)
 {
@@ -151,5 +133,3 @@ double lilSpmat::vecMul(const unsigned int i, const std::vector<double> &vecPhi)
   }
   return sumProdRow;
 }
-
-//Conrado - End #############################################################
