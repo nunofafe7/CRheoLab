@@ -71,7 +71,7 @@ void lilSpmat::delValue(unsigned int i, unsigned int j)
 }
 
 // Returns the value in position (i,j) if exists, otherwise returns 0
-double lilSpmat::getValue(unsigned int i, unsigned int j);
+double lilSpmat::getValue(unsigned int i, unsigned int j)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
