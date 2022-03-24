@@ -1,0 +1,24 @@
+# install boost library if not available
+sudo apt-get install libboost-all-dev
+
+
+# Clean Compilation
+make clean
+
+# Compile
+make 
+
+# Add executable to PATH for running anywhere
+
+
+# Run a case -> load OpenFOAM
+cd run
+
+## Add the bin folder to the PATH so that it can be executed
+export PATH="$PATH:../bin"
+
+## Generate the mesh
+gmshToFoam mesh32.msh
+
+## Execute CRheo
+CRheo 
