@@ -34,7 +34,7 @@ class Cell
         void computeMaxNonOrthogonality();
         void computeSkewness();
 
-    private:
+    public:
 
         // cellID
         int ID_;

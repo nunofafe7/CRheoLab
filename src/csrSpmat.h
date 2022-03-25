@@ -2,6 +2,7 @@
 #define CSRSPMAT_H
 
 #include "spmat.h"
+#include "Mesh.h"
 #include <vector>
 
 // Class to implement a list of lists for a sparse matrix
@@ -23,7 +24,7 @@ public: // change to private later
 public:
 
   // Constructor
-  csrSpmat(unsigned int numRows, unsigned int numCols, Mesh &mesh);
+  csrSpmat(unsigned int numRows, unsigned int numCols, Mesh mesh);
 
   // Destructor
   virtual ~csrSpmat(){};
