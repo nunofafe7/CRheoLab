@@ -20,7 +20,8 @@ lilSpmat::lilSpmat(unsigned int numRows, unsigned int numCols)
 double lilSpmat::sparsity()
 {
   unsigned int nz = 0;
-  for(unsigned int i=0;i< numRows_;i++) {
+  for(unsigned int i=0;i< numRows_;i++)
+  {
      nz += columns_[i].size();
   }
   return (1.0 - ((double)nz / ((double)(numRows_ * numCols_))));
