@@ -10,11 +10,13 @@ csrSpmat::csrSpmat(unsigned int numRows, unsigned int numCols, Mesh mesh)
   numRows_ = numRows;
   numCols_ = numCols;
 
-  unsigned int nz = 0;
+  // Declaration of variables
+  unsigned int nz;
   const Cell* neigh_ptr;
   const Cell* owner_ptr;
 
-  // determine the total number of non-zeros values (number of cells plus its neighbours)
+  // Determine the total number of non-zeros values (number of cells plus its neighbours)
+  nz = 0;
   for (unsigned int i=0;i<mesh.nCells_;i++)
   {
     nz += 1;
@@ -28,15 +30,19 @@ csrSpmat::csrSpmat(unsigned int numRows, unsigned int numCols, Mesh mesh)
     }
   }
 
-  // Allocate memory for
+  // Store number of non-null values
+  numNZ_ = nz;
+
+  // Allocate memory for the values
   values_.resize(nz);
   columns_.resize(nz);
-  row_ptr_.resize(numRows_);
+  row_ptr_.resize(numRows_+1);
 
-  // Clean memory for values
+  // Clean memory for the values
   // values_ = 0.0;
 
-  // fill-in the sparse matrix with positions of non-null values (number of cells plus its neighbours)
+  // Fill-in the sparse matrix with the positions of the non-null values
+  // (number of cells plus their neighbours)
   nz = 0;
   for (unsigned int i=0;mesh.nCells_;i++)
   {
@@ -50,19 +56,20 @@ csrSpmat::csrSpmat(unsigned int numRows, unsigned int numCols, Mesh mesh)
 
       if(neigh_ptr != NULL)
       {
-         if(neigh_ptr->ID_ == i)
-         {
-               columns_[nz] = owner_ptr->ID_;
-               nz += 1;
-         }
-         else //if(owner_prt.ID_ == i)
-         {
-               columns_[nz] = neigh_ptr->ID_;
-               nz += 1;
-         }
+        if(neigh_ptr->ID_ == i)
+        {
+          columns_[nz] = owner_ptr->ID_;
+          nz += 1;
+        }
+        else //if(owner_prt.ID_ == i)
+        {
+          columns_[nz] = neigh_ptr->ID_;
+          nz += 1;
+        }
       }
     }
   }
+  row_ptr_[numRows_] = nz;
 }
 
 // Returns the sparsity of the matrix
@@ -74,32 +81,79 @@ double csrSpmat::sparsity()
 // Adds a value to position (i,j) if exists, otherwise inserts a new value
 void csrSpmat::addValue(unsigned int i, unsigned int j, double val)
 {
-
+  for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
+  {
+    if (columns_[k] == j)
+    {
+      values_[k] += val;
+      return;
+    }
+  }
+  std::cout << "Error: invalid column for sparse structure matrix" << std::endl;
+  exit(0);
 }
 
 // Subtracts a value to position (i,j) if exists, otherwise inserts a new value
 void csrSpmat::subValue(unsigned int i, unsigned int j, double val)
 {
-
+  for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
+  {
+    if (columns_[k] == j)
+    {
+      values_[k] -= val;
+      return;
+    }
+  }
+  std::cout << "Error: invalid column for sparse structure matrix" << std::endl;
+  exit(0);
 }
 
 // Deletes the value in position (i,j) if exists, otherwise does nothing
 void csrSpmat::delValue(unsigned int i, unsigned int j)
 {
-
+  for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
+  {
+    if (columns_[k] == j)
+    {
+      values_[k] = 0.0;
+      return;
+    }
+  }
+  std::cout << "Error: invalid column for sparse structure matrix" << std::endl;
+  exit(0);
 }
 
 // Returns the value in position (i,j) if exists, otherwise returns 0
 double csrSpmat::getValue(unsigned int i, unsigned int j)
 {
-
+  for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
+  {
+    if (columns_[k] == j)
+    {
+      return values_[k];
+    }
+  }
+  return 0.0;
 }
 
 // Returns the sparse matrix in a dense format as a vector of vectors
 std::vector< std::vector<double> > csrSpmat::dense()
 {
   std::vector< std::vector<double> > denseMatrix(numRows_);
-
+  std::vector<double> temp(numCols_);
+  unsigned int id_column = 0;
+  for(unsigned int i=0;i<numRows_;i++)
+  {
+    denseMatrix[i] = temp;
+  }
+  for(unsigned int i=0;i<numRows_;i++)
+  {
+    for (unsigned int j=row_ptr_[i];j<row_ptr_[i+1];j++)
+    {
+      id_column = columns_[j];
+      denseMatrix[i][id_column] = values_[j];
+    }
+  }
   return denseMatrix;
 }
 
@@ -107,24 +161,16 @@ std::vector< std::vector<double> > csrSpmat::dense()
 std::vector<double> csrSpmat::matMul(const std::vector<double> &vecPhi)
 {
   std::vector<double> v(vecPhi.size());
-
   unsigned int j = 0;
-
   for(unsigned int i = 0; i < numRows_; i++)
   {
-
     v[i] = 0.0;
-
-    while (j < row_ptr_[i+1])
+    while (j<row_ptr_[i+1])
     {
-
       v[i] += values_[j] * vecPhi[columns_[j]];
-
-      j += 1;//++j;
+      j += 1;
     }
-
   }
-
   return v;
 }
 
@@ -132,17 +178,11 @@ std::vector<double> csrSpmat::matMul(const std::vector<double> &vecPhi)
 double csrSpmat::vecMul(const unsigned int i, const std::vector<double> &vecPhi)
 {
   double sumProdRow = 0.0;
-
   unsigned int j = 0;
-
-  while (j < row_ptr_[i+1])
+  while (j<row_ptr_[i+1])
   {
-
     sumProdRow += values_[j] * vecPhi[columns_[j]];
-
-    j += 1;//++j;
-
+    j += 1;
   }
-
   return sumProdRow;
 }

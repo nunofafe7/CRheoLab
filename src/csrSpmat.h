@@ -12,13 +12,16 @@ class csrSpmat : public spmat {
 
 public: // change to private later
 
+  // Number of non-null values
+  unsigned int numNZ_;
 
+  // Vector of vector for the values
   std::vector<double> values_;
 
-
+  // Vector of vector for the columns
   std::vector<unsigned int> columns_;
 
-
+  // Vector of vector for the row pointers
   std::vector<unsigned int> row_ptr_;
 
 public:

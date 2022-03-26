@@ -11,19 +11,19 @@ class lilSpmat : public spmat {
 
 public: // change to private later
 
-  // Vector of vector for the columns
-  // columns_[i] is the vector for row i
-  // columns_[i][j] is the index in position j of the std::vector for row i
-  // columns_ always has numRows_ entries
-  // columns_[i] has as many entries as non-null values in row i
-  std::vector< std::vector<unsigned int> > columns_;
-
   // vector of vector for the values
   // values_[i] is the vector for row i
   // values_[i][j] is the index in position j of the std::vector for row i
   // values_ always has numRows_ entries
   // values_[i] has as many entries as non-null values in row i
   std::vector< std::vector<double> > values_;
+
+  // Vector of vector for the columns
+  // columns_[i] is the vector for row i
+  // columns_[i][j] is the index in position j of the std::vector for row i
+  // columns_ always has numRows_ entries
+  // columns_[i] has as many entries as non-null values in row i
+  std::vector< std::vector<unsigned int> > columns_;
 
 public:
 

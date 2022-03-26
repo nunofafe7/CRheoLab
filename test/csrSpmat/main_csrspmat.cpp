@@ -1,7 +1,7 @@
 // Main file for testing
 
 #include <iostream>
-#include "lilSpmat.h"
+#include "csrSpmat.h"
 
 int main(int argc, char const *argv[]) {
 
@@ -17,9 +17,9 @@ int main(int argc, char const *argv[]) {
         {0.0, 0.0, 0.0, 6.0}
       };
 
-      for (int i = 0; i < spMatTest.size(); i++)
+      for (unsigned int i = 0; i < spMatTest.size(); i++)
       {
-            for (int j = 0; j < spMatTest[i].size(); j++)
+            for (unsigned int j = 0; j < spMatTest[i].size(); j++)
             {
                   std::cout << spMatTest[i][j] << " ";
             }
@@ -50,6 +50,8 @@ int main(int argc, char const *argv[]) {
       std::cout << "Test sparse matrix construction" << std::endl;
       std::cout << "#############################################################" << std::endl;
 
+      Mesh mesh;
+
       // Declare and initialize a sparse matrix
       csrSpmat spmat = csrSpmat(4,4,mesh);
 
@@ -69,27 +71,26 @@ int main(int argc, char const *argv[]) {
       spmat.delValue(2,2);
       spmat.delValue(3,2);
 
-      std::cout << "Columns indexes:" << std::endl;
-
-      for (int i = 0; i < spmat.columns_.size(); i++)
-      {
-            for (int j = 0; j < spmat.columns_[i].size(); j++)
-            {
-                  std::cout << spmat.columns_[i][j] << " ";
-            }
-            std::cout << std::endl;
-      }
-
       std::cout << "Columns values:" << std::endl;
-
-      for (int i = 0; i < spmat.values_.size(); i++)
+      for (unsigned int i = 0; i < spmat.values_.size(); i++)
       {
-            for (int j = 0; j < spmat.values_[i].size(); j++)
-            {
-                  std::cout << spmat.values_[i][j] << " ";
-            }
-            std::cout << std::endl;
+            std::cout << spmat.values_[i] << " ";
       }
+      std::cout << std::endl;
+
+      std::cout << "Columns indexes:" << std::endl;
+      for (unsigned int i = 0; i < spmat.columns_.size(); i++)
+      {
+            std::cout << spmat.columns_[i] << " ";
+      }
+      std::cout << std::endl;
+
+      std::cout << "Row pointers:" << std::endl;
+      for (unsigned int i = 0; i < spmat.row_ptr_.size(); i++)
+      {
+            std::cout << spmat.row_ptr_[i] << " ";
+      }
+      std::cout << std::endl;
 
       // std::cout << "#############################################################" << std::endl;
       // std::cout << "Test sparse matrix to dense format" << std::endl;
@@ -103,9 +104,9 @@ int main(int argc, char const *argv[]) {
       //
       // std::cout << "Dense matrix:" << std::endl;
       //
-      // for (int i = 0; i < denseMatrix.size(); i++)
+      // for (unsigned int i = 0; i < denseMatrix.size(); i++)
       // {
-      //       for (int j = 0; j < denseMatrix[i].size(); j++)
+      //       for (unsigned int j = 0; j < denseMatrix[i].size(); j++)
       //       {
       //             std::cout << denseMatrix[i][j] << " ";
       //       }
@@ -119,7 +120,6 @@ int main(int argc, char const *argv[]) {
       std::vector<double> vecPhi{ 1.0, 2.0, 3.0, 4.0};
 
       std::cout << "Phi vector for multiplication:" << std::endl;
-
       for (double valuePhi : vecPhi)
             std::cout << valuePhi << std::endl;
 
@@ -129,7 +129,6 @@ int main(int argc, char const *argv[]) {
       v = spmat.matMul(vecPhi);
 
       std::cout << "Vector resulting from the matrix-vector product:" << std::endl;
-
       for (double valueV : v)
             std::cout << valueV << std::endl;
 

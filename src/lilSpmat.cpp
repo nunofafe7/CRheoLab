@@ -12,8 +12,8 @@ lilSpmat::lilSpmat(unsigned int numRows, unsigned int numCols)
   // Allocate memory for the rows since any row might be accessed at any time
   // Do not do the same for each columns_[i] and values_[i] vector since their size
   // should only increase as new entries are added
-  columns_.resize(numRows_);
   values_.resize(numRows_);
+  columns_.resize(numRows_);
 }
 
 // Returns the sparsity of the matrix
