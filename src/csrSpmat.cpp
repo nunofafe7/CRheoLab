@@ -4,11 +4,11 @@
 
 // Constructor
 // Constructs an empty sparse matrix and allocates memory for the rows
-csrSpmat::csrSpmat(unsigned int numRows, unsigned int numCols, Mesh mesh)
+csrSpmat::csrSpmat(Mesh &mesh)
 {
   // Store number of rows and columns
-  numRows_ = numRows;
-  numCols_ = numCols;
+  numRows_ = mesh.nCells_;
+  numCols_ = mesh.nCells_;
 
   // Declaration of variables
   unsigned int nz;
@@ -52,8 +52,7 @@ csrSpmat::csrSpmat(unsigned int numRows, unsigned int numCols, Mesh mesh)
     for (unsigned int j=0;j<mesh.cellList_[i].cellFaces_.size();j++) // getter?
     {
       neigh_ptr = mesh.cellList_[i].cellFaces_[j]->getNeighbour();
-      owner_ptr = mesh.cellList_[i].cellFaces_[j]->getNeighbour();
-
+      owner_ptr = mesh.cellList_[i].cellFaces_[j]->getOwner();
       if(neigh_ptr != NULL)
       {
         if(neigh_ptr->ID_ == i)

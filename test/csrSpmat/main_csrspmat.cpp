@@ -53,7 +53,7 @@ int main(int argc, char const *argv[]) {
       Mesh mesh;
 
       // Declare and initialize a sparse matrix
-      csrSpmat spmat = csrSpmat(4,4,mesh);
+      csrSpmat spmat = csrSpmat(mesh);
 
       // add values
       spmat.addValue(0,0,1.0);

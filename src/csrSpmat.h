@@ -27,7 +27,7 @@ public: // change to private later
 public:
 
   // Constructor
-  csrSpmat(unsigned int numRows, unsigned int numCols, Mesh mesh);
+  csrSpmat(Mesh &mesh);
 
   // Destructor
   virtual ~csrSpmat(){};
