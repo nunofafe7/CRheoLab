@@ -51,16 +51,15 @@ $(OUTPUT):
 $(shell $(MD) $(OBJ_DIR))
 $(shell $(MD) $(BIN_DIR))
 
-
 $(MAIN): $(OBJ_FILES)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LFLAGS)
+	#$(CXX) $(CXXFLAGS) -o $@ $^ $(LFLAGS)
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file)
 # (see the gnu make manual section about automatic variables)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c  -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 .PHONY: clean
 clean:

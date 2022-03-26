@@ -51,7 +51,6 @@ $(OUTPUT):
 $(shell $(MD) $(OBJ_DIR))
 $(shell $(MD) $(BIN_DIR))
 
-
 $(MAIN): $(OBJ_FILES)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LFLAGS)
 
@@ -65,7 +64,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 .PHONY: clean
 clean:
 	$(RM) $(MAIN)
-	$(RM) $(call FIXPATH,$(OBJ_FILES))
 	@echo Cleanup complete!
 
 runs: all
