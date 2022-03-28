@@ -33,13 +33,11 @@ int main(int argc, char const *argv[]) {
       std::cout << "Test sparse matrix construction" << std::endl;
       std::cout << "#############################################################" << std::endl;
 
-      Mesh mesh;
-
       // Declare and initialize a sparse matrix
-      csrSpmat spmat;// = csrSpmat(mesh);
+      csrSpmat spmat;
 
       //#############################################################
-      // Temporary!
+      // Manual constructor
       //#############################################################
 
       spmat.numRows_=4;

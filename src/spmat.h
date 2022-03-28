@@ -18,7 +18,7 @@ public:
 public:
 
   // Returns the sparsity of the matrix
-  virtual double virtual sparsity() = 0;
+  double virtual sparsity() = 0;
 
   // Returns the number of rows
   unsigned int getNumRows()
@@ -33,25 +33,27 @@ public:
   }
 
   // Adds a value to position (i,j) if exists, otherwise inserts a new value
-  virtual void addValue(unsigned int i, unsigned int j, double val) = 0;
+  void addValue(unsigned int i, unsigned int j, double val);
 
   // Subtracts a value to position (i,j) if exists, otherwise inserts a new value with oposite sign
-  virtual void subValue(unsigned int i, unsigned int j, double val) = 0;
+  void subValue(unsigned int i, unsigned int j, double val);
 
   // Deletes the value in position (i,j) if exists, otherwise does nothing
-  virtual void delValue(unsigned int i, unsigned int j) = 0;
+  void delValue(unsigned int i, unsigned int j);
 
   // Returns the value in position (i,j) if exists, otherwise returns 0
-  virtual double getValue(unsigned int i, unsigned int j) = 0;
+  double getValue(unsigned int i, unsigned int j);
 
   // Returns the sparse matrix in a dense format as a vector of vectors
-  virtual std::vector< std::vector<double> > dense() = 0;
+  std::vector< std::vector<double> > dense();
 
   // Returns the product matrix-vector as a vector
-  virtual std::vector<double> matMul(std::vector<double> &v, const std::vector<double> &vecPhi) = 0;
+  //std::vector<double> matMul(std::vector<double> v);
+  std::vector<double> matMul(std::vector<double> &v, const std::vector<double> &vecPhi);
 
   // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
-  virtual double vecMul(const unsigned int i, const std::vector<double> &vecPhi) = 0;
+  //double vecMul(unsigned int i, std::vector<double> v);
+  double vecMul(const unsigned int i, const std::vector<double> &vecPhi);
 
 };
 
