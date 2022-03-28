@@ -74,7 +74,7 @@ csrSpmat::csrSpmat(Mesh &mesh)
 // Returns the sparsity of the matrix
 double csrSpmat::sparsity()
 {
-  return 0.0;
+  return (1.0 - ((double)numNZ_ / ((double)(numRows_ * numCols_))));
 }
 
 // Adds a value to position (i,j) if exists, otherwise inserts a new value

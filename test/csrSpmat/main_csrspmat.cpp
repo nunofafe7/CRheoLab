@@ -9,7 +9,7 @@ int main(int argc, char const *argv[]) {
       std::cout << "Test csrSpmat class" << std::endl;
       std::cout << "#############################################################" << std::endl;
 
-      std::vector<std::vector<double>> spMatTest //Sparse Matrix for Test
+      std::vector<std::vector<double>> matrix
       {
         {1.0, 0.0, 2.0, 0.0},
         {0.0, 3.0, 0.0, 0.0},
@@ -18,11 +18,11 @@ int main(int argc, char const *argv[]) {
       };
 
       std::cout << "Testing matrix:" << std::endl;
-      for (unsigned int i = 0; i < spMatTest.size(); i++)
+      for (unsigned int i = 0; i < matrix.size(); i++)
       {
-            for (unsigned int j = 0; j < spMatTest[i].size(); j++)
+            for (unsigned int j = 0; j < matrix[i].size(); j++)
             {
-                  std::cout << spMatTest[i][j] << " ";
+                  std::cout << matrix[i][j] << " ";
             }
             std::cout << std::endl;
       }
