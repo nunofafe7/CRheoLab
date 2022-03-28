@@ -177,7 +177,7 @@ std::vector<double> csrSpmat::matMul(const std::vector<double> &vecPhi)
 double csrSpmat::vecMul(const unsigned int i, const std::vector<double> &vecPhi)
 {
   double sumProdRow = 0.0;
-  unsigned int j = 0;
+  unsigned int j = row_ptr_[i];
   while (j<row_ptr_[i+1])
   {
     sumProdRow += values_[j] * vecPhi[columns_[j]];
