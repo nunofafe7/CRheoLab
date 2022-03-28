@@ -27,6 +27,9 @@ public: // change to private later
 public:
 
   // Constructor
+  csrSpmat(){}
+
+  // Constructor
   csrSpmat(Mesh &mesh);
 
   // Destructor

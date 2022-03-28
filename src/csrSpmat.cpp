@@ -145,7 +145,7 @@ std::vector< std::vector<double> > csrSpmat::dense()
   {
     denseMatrix[i] = temp;
   }
-  for(unsigned int i=0;i<numRows_;i++)
+  for (unsigned int i=0;i<numRows_;i++)
   {
     for (unsigned int j=row_ptr_[i];j<row_ptr_[i+1];j++)
     {
@@ -161,7 +161,7 @@ std::vector<double> csrSpmat::matMul(const std::vector<double> &vecPhi)
 {
   std::vector<double> v(vecPhi.size());
   unsigned int j = 0;
-  for(unsigned int i = 0; i < numRows_; i++)
+  for (unsigned int i=0;i<numRows_;i++)
   {
     v[i] = 0.0;
     while (j<row_ptr_[i+1])

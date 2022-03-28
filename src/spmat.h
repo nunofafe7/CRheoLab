@@ -7,7 +7,7 @@
 
 class spmat {
 
-protected:
+public:
 
   // Number of rows of the stored matrix
   unsigned int numRows_;
