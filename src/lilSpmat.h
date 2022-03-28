@@ -5,8 +5,6 @@
 #include <vector>
 
 // Class to implement a list of lists for a sparse matrix
-// The std::vector structure is used to implement the list
-
 class lilSpmat : public spmat {
 
 public: // change to private later

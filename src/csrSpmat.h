@@ -6,8 +6,6 @@
 #include <vector>
 
 // Class to implement a list of lists for a sparse matrix
-// The std::vector structure is used to implement the list
-
 class csrSpmat : public spmat {
 
 public: // change to private later
@@ -38,13 +36,13 @@ public:
   // Returns the sparsity of the matrix
   double sparsity();
 
-  // Adds a value to position (i,j) if exists, otherwise inserts a new value
+  // Adds a value to position (i,j) if exists, otherwise throws an error
   void addValue(unsigned int i, unsigned int j, double val);
 
-  // Subtracts a value to position (i,j) if exists, otherwise inserts a new value with oposite sign
+  // Subtracts a value to position (i,j) if exists, otherwise throws an error
   void subValue(unsigned int i, unsigned int j, double val);
 
-  // Deletes the value in position (i,j) if exists, otherwise does nothing
+  // Deletes the value in position (i,j) if exists, otherwise throws an error
   void delValue(unsigned int i, unsigned int j);
 
   // Returns the value in position (i,j) if exists, otherwise returns 0

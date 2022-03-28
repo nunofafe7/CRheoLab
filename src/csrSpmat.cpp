@@ -67,6 +67,8 @@ csrSpmat::csrSpmat(Mesh &mesh)
         }
       }
     }
+    // order columns in each row
+    //
   }
   row_ptr_[numRows_] = nz;
 }
