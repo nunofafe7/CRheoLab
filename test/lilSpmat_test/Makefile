@@ -26,7 +26,7 @@ OBJ_DIR := ../../obj
 # define bin directory
 BIN_DIR := ../../bin
 
-MAIN := ../../bin/lilSpmat
+MAIN := ../../bin/lilSpmat_test
 
 FIXPATH = $1
 RM = rm -f

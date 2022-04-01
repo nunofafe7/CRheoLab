@@ -60,7 +60,7 @@ csrSpmat::csrSpmat(Mesh &mesh)
           columns_[nz] = owner_ptr->ID_;
           nz += 1;
         }
-        else //if(owner_prt.ID_ == i)
+        else //if(owner_ptr.ID_ == i)
         {
           columns_[nz] = neigh_ptr->ID_;
           nz += 1;
