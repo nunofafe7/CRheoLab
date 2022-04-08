@@ -7,7 +7,7 @@ class Cell
 {
     public:
 
-        // Constructor  
+        // Constructor
         Cell();
 
         // Destructor
@@ -22,7 +22,7 @@ class Cell
 
         // Getters
         const vector3& getCenterOfMass() const;
-        const double&  getVolume() const;
+        const double& getVolume() const;
         const double& getNonOrthogonality() const;
         const double& getSkewness() const;
 
@@ -34,7 +34,7 @@ class Cell
         void computeMaxNonOrthogonality();
         void computeSkewness();
 
-    private:
+    public:
 
         // cellID
         int ID_;
@@ -43,7 +43,7 @@ class Cell
         double volume_;
 
         // Cell center of Mass
-        vector3 centerOfMass_; 
+        vector3 centerOfMass_;
 
         // Cell skewness
         double skewness_;

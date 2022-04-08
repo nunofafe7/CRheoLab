@@ -1,49 +1,48 @@
-#ifndef LILSPMAT_H
-#define LILSPMAT_H
+#ifndef CSRSPMAT_H
+#define CSRSPMAT_H
 
 #include "spmat.h"
+#include "Mesh.h"
 #include <vector>
 
 // Class to implement a list of lists for a sparse matrix
-class lilSpmat : public spmat {
+class csrSpmat : public spmat {
 
 public: // change to private later
 
-  // vector of vector for the values
-  // values_[i] is the vector for row i
-  // values_[i][j] is the index in position j of the std::vector for row i
-  // values_ always has numRows_ entries
-  // values_[i] has as many entries as non-null values in row i
-  std::vector< std::vector<double> > values_;
+  // Number of non-null values
+  unsigned int numNZ_;
+
+  // Vector of vector for the values
+  std::vector<double> values_;
 
   // Vector of vector for the columns
-  // columns_[i] is the vector for row i
-  // columns_[i][j] is the index in position j of the std::vector for row i
-  // columns_ always has numRows_ entries
-  // columns_[i] has as many entries as non-null values in row i
-  std::vector< std::vector<unsigned int> > columns_;
+  std::vector<unsigned int> columns_;
+
+  // Vector of vector for the row pointers
+  std::vector<unsigned int> row_ptr_;
 
 public:
 
   // Constructor
-  lilSpmat(){}
+  csrSpmat(){}
 
   // Constructor
-  lilSpmat(unsigned int numRows, unsigned int numCols);
+  csrSpmat(Mesh &mesh);
 
   // Destructor
-  virtual ~lilSpmat(){};
+  virtual ~csrSpmat(){};
 
   // Returns the sparsity of the matrix
   double sparsity() override;
 
-  // Adds a value to position (i,j) if exists, otherwise inserts a new value
+  // Adds a value to position (i,j) if exists, otherwise throws an error
   void addValue(unsigned int i, unsigned int j, double val) override;
 
-  // Subtracts a value to position (i,j) if exists, otherwise inserts a new value with oposite sign
+  // Subtracts a value to position (i,j) if exists, otherwise throws an error
   void subValue(unsigned int i, unsigned int j, double val) override;
 
-  // Deletes the value in position (i,j) if exists, otherwise does nothing
+  // Deletes the value in position (i,j) if exists, otherwise throws an error
   void delValue(unsigned int i, unsigned int j) override;
 
   // Returns the value in position (i,j) if exists, otherwise returns 0
@@ -67,4 +66,4 @@ public:
 
 };
 
-#endif // LILSPMAT_H
+#endif // CSRSPMAT_H
