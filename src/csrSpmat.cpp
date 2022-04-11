@@ -197,3 +197,29 @@ double csrSpmat::vecMul(const unsigned int i, const std::vector<double> &vecPhi)
   }
   return sumProdRow;
 }
+
+// Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double excluding the diagonal
+double csrSpmat::vecMulNoDiagonal(const unsigned int &i,const std::vector<double> &vecPhi)
+{
+  double sumProdRow = 0.0;
+  unsigned int j = row_ptr_[i];
+  while (j<row_ptr_[i+1])
+  {
+    if (i != columns_[j]) sumProdRow += values_[j] * vecPhi[columns_[j]];
+    j += 1;
+  }
+  return sumProdRow;
+}
+
+// Returns a double given by the sum of the products of xValue (a double) for a specific row of the matrix
+double csrSpmat::xValueProduct(const unsigned int &i, const double &xValue)
+{
+  double sumProdRow = 0.0;
+  unsigned int j = row_ptr_[i];
+  while (j<row_ptr_[i+1])
+  {
+    sumProdRow += values_[j] * xValue;
+    j += 1;
+  }
+  return sumProdRow;
+}

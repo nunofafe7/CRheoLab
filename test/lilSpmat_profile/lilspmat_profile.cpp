@@ -41,7 +41,6 @@ int main(int argc, char const *argv[]) {
             // Test sparse matrix fill-in - Test 2
 
             // Declaration of variables
-            unsigned int nz;
             const Cell* neigh_ptr;
             const Cell* owner_ptr;
 

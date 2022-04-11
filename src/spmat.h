@@ -53,12 +53,11 @@ public:
   // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
   virtual double vecMul(const unsigned int i, const std::vector<double> &vecPhi) = 0;
 
-  // // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double excluding the diagonal
-  // //double vecMulNoDiagonal(const unsigned int iRow, const std::vector<double> &vecPhi);
-  // virtual double vecMulNoDiagonal(const unsigned int iRow, const std::vector<double> &vecPhi) = 0;
-  //
-  // // Returns a double given by the sum of the products of xValue (a double) for the elements of the iRow matrix row
-  // virtual double xValueProduct(const unsigned int& iRow, const double &xValue) = 0;
+  // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double excluding the diagonal
+  virtual double vecMulNoDiagonal(const unsigned int &i, const std::vector<double> &vecPhi) = 0;
+
+  // Returns a double given by the sum of the products of xValue (a double) for the elements of the iRow matrix row
+  virtual double xValueProduct(const unsigned int &i, const double &xValue) = 0;
 
 };
 
