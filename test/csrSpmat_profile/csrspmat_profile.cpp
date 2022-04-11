@@ -32,9 +32,9 @@ int main(int argc, char const *argv[])
             auto start1 = std::chrono::high_resolution_clock::now();
 
             // Declare and initialize a sparse matrix
-            csrSpmat spmat;
+            //csrSpmat spmat;
 
-            spmat = csrSpmat(mesh);
+            csrSpmat *spmat = new csrSpmat(mesh);
 
             auto stop1 = std::chrono::high_resolution_clock::now();
             auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(stop1 - start1);
@@ -54,7 +54,7 @@ int main(int argc, char const *argv[])
             // Fill-in the sparse matrix with the positions of the non-null values
             for (unsigned int i = 0; i < mesh.nCells_; i++)
             {
-                  spmat.addValue(i, i, 1.0);
+                  spmat->addValue(i, i, 1.0);
                   for (unsigned int j = 0; j < mesh.cellList_[i].cellFaces_.size(); j++)
                   {
                         neigh_ptr = mesh.cellList_[i].cellFaces_[j]->getNeighbour();
@@ -63,11 +63,11 @@ int main(int argc, char const *argv[])
                         {
                               if (neigh_ptr->ID_ == i)
                               {
-                                    spmat.addValue(i, owner_ptr->ID_, 1.0);
+                                    spmat->addValue(i, owner_ptr->ID_, 1.0);
                               }
                               else // if(owner_ptr.ID_ == i)
                               {
-                                    spmat.addValue(i, neigh_ptr->ID_, 1.0);
+                                    spmat->addValue(i, neigh_ptr->ID_, 1.0);
                               }
                         }
                   }
@@ -91,14 +91,18 @@ int main(int argc, char const *argv[])
             // Duration 3 start
             auto start3 = std::chrono::high_resolution_clock::now();
 
-            v = spmat.matMul(vecPhi);
+            v = spmat->matMul(vecPhi);
 
             auto stop3 = std::chrono::high_resolution_clock::now();
             auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - start3);
             time3 += (pow (10.0, -6.0) * duration3.count());
             // Duration 3 end
+            
+            //desctructor
+            delete spmat; 
 
       }
+
 
       std::cout << "Elapsed time for Sparse Matrix construction: " << std::fixed << std::setprecision(3) << time1 << " s" << std::endl;
 
