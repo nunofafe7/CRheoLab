@@ -37,6 +37,9 @@ public:
   // Returns the sparsity of the matrix
   double sparsity() override;
 
+  // Sets a value to position (i,j) if exists, otherwise inserts a new value
+  void setValue(unsigned int i, unsigned int j, double val) override;
+
   // Adds a value to position (i,j) if exists, otherwise inserts a new value
   void addValue(unsigned int i, unsigned int j, double val) override;
 

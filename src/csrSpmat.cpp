@@ -89,6 +89,21 @@ double csrSpmat::sparsity()
   return (1.0 - ((double)numNZ_ / ((double)(numRows_ * numCols_))));
 }
 
+// Sets a value to position (i,j) if exists, otherwise inserts a new value
+void csrSpmat::setValue(unsigned int i, unsigned int j, double val)
+{
+  for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
+  {
+    if (columns_[k] == j)
+    {
+      values_[k] = val;
+      return;
+    }
+  }
+  std::cout << "Error: invalid column for sparse structure matrix" << std::endl;
+  exit(0);
+}
+
 // Adds a value to position (i,j) if exists, otherwise inserts a new value
 void csrSpmat::addValue(unsigned int i, unsigned int j, double val)
 {

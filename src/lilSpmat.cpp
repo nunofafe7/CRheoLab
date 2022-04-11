@@ -27,6 +27,21 @@ double lilSpmat::sparsity()
   return (1.0 - ((double)nz / ((double)(numRows_ * numCols_))));
 }
 
+// Sets a value to position (i,j) if exists, otherwise inserts a new value
+void lilSpmat::setValue(unsigned int i, unsigned int j, double val)
+{
+  for(unsigned int k=0;k<columns_[i].size();k++)
+  {
+    if(columns_[i][k] == j)
+    {
+      values_[i][k] = val;
+      return;
+    }
+  }
+  columns_[i].push_back(j);
+  values_[i].push_back(val);
+}
+
 // Adds a value to position (i,j) if exists, otherwise inserts a new value
 void lilSpmat::addValue(unsigned int i, unsigned int j, double val)
 {
