@@ -28,7 +28,7 @@ double lilSpmat::sparsity()
 }
 
 // Sets a value to position (i,j) if exists, otherwise inserts a new value
-void lilSpmat::setValue(unsigned int i, unsigned int j, double val)
+void lilSpmat::setValue(unsigned int &i, unsigned int &j, double &val)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -43,7 +43,7 @@ void lilSpmat::setValue(unsigned int i, unsigned int j, double val)
 }
 
 // Adds a value to position (i,j) if exists, otherwise inserts a new value
-void lilSpmat::addValue(unsigned int i, unsigned int j, double val)
+void lilSpmat::addValue(unsigned int &i, unsigned int &j, double &val)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -58,7 +58,7 @@ void lilSpmat::addValue(unsigned int i, unsigned int j, double val)
 }
 
 // Subtracts a value to position (i,j) if exists, otherwise inserts a new value
-void lilSpmat::subValue(unsigned int i, unsigned int j, double val)
+void lilSpmat::subValue(unsigned int &i, unsigned int &j, double &val)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -73,7 +73,7 @@ void lilSpmat::subValue(unsigned int i, unsigned int j, double val)
 }
 
 // Deletes the value in position (i,j) if exists, otherwise does nothing
-void lilSpmat::delValue(unsigned int i, unsigned int j)
+void lilSpmat::delValue(unsigned int &i, unsigned int &j)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -87,7 +87,7 @@ void lilSpmat::delValue(unsigned int i, unsigned int j)
 }
 
 // Returns the value in position (i,j) if exists, otherwise returns 0
-double lilSpmat::getValue(unsigned int i, unsigned int j)
+double lilSpmat::getValue(unsigned int &i, unsigned int &j)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {

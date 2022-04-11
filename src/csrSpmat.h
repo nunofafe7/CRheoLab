@@ -37,19 +37,19 @@ public:
   double sparsity() override;
 
   // Sets a value to position (i,j) if exists, otherwise inserts a new value
-  void setValue(unsigned int i, unsigned int j, double val) override;
+  void setValue(unsigned int &i, unsigned int &j, double &val) override;
 
   // Adds a value to position (i,j) if exists, otherwise throws an error
-  void addValue(unsigned int i, unsigned int j, double val) override;
+  void addValue(unsigned int &i, unsigned int &j, double &val) override;
 
   // Subtracts a value to position (i,j) if exists, otherwise throws an error
-  void subValue(unsigned int i, unsigned int j, double val) override;
+  void subValue(unsigned int &i, unsigned int &j, double &val) override;
 
   // Deletes the value in position (i,j) if exists, otherwise throws an error
-  void delValue(unsigned int i, unsigned int j) override;
+  void delValue(unsigned int &i, unsigned int &j) override;
 
   // Returns the value in position (i,j) if exists, otherwise returns 0
-  double getValue(unsigned int i, unsigned int j) override;
+  double getValue(unsigned int &i, unsigned int &j) override;
 
   // Returns the sparse matrix in a dense format as a vector of vectors
   std::vector< std::vector<double> > dense() override;

@@ -67,9 +67,9 @@ csrSpmat::csrSpmat(Mesh &mesh)
       }
     }
     // Reorder the columns
-    for (unsigned int j=row_ptr_[i];j<row_ptr_[i]+nz;j++)
+    for (unsigned int j=row_ptr_[i];j<nz-1;j++)
     {
-      for (unsigned int k=j+1;k<=row_ptr_[i]+nz;k++)
+      for (unsigned int k=j+1;k<nz-1;k++)
       {
         if (columns_[j]>columns_[k])
         {
@@ -90,7 +90,7 @@ double csrSpmat::sparsity()
 }
 
 // Sets a value to position (i,j) if exists, otherwise inserts a new value
-void csrSpmat::setValue(unsigned int i, unsigned int j, double val)
+void csrSpmat::setValue(unsigned int &i, unsigned int &j, double &val)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -105,7 +105,7 @@ void csrSpmat::setValue(unsigned int i, unsigned int j, double val)
 }
 
 // Adds a value to position (i,j) if exists, otherwise inserts a new value
-void csrSpmat::addValue(unsigned int i, unsigned int j, double val)
+void csrSpmat::addValue(unsigned int &i, unsigned int &j, double &val)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -120,7 +120,7 @@ void csrSpmat::addValue(unsigned int i, unsigned int j, double val)
 }
 
 // Subtracts a value to position (i,j) if exists, otherwise inserts a new value
-void csrSpmat::subValue(unsigned int i, unsigned int j, double val)
+void csrSpmat::subValue(unsigned int &i, unsigned int &j, double &val)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -135,7 +135,7 @@ void csrSpmat::subValue(unsigned int i, unsigned int j, double val)
 }
 
 // Deletes the value in position (i,j) if exists, otherwise does nothing
-void csrSpmat::delValue(unsigned int i, unsigned int j)
+void csrSpmat::delValue(unsigned int &i, unsigned int &j)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -150,7 +150,7 @@ void csrSpmat::delValue(unsigned int i, unsigned int j)
 }
 
 // Returns the value in position (i,j) if exists, otherwise returns 0
-double csrSpmat::getValue(unsigned int i, unsigned int j)
+double csrSpmat::getValue(unsigned int &i, unsigned int &j)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {

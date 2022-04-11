@@ -33,19 +33,19 @@ public:
   }
 
   // Sets a value to position (i,j) if exists, otherwise inserts a new value
-  virtual void setValue(unsigned int i, unsigned int j, double val) = 0;
+  virtual void setValue(unsigned int &i, unsigned int &j, double &val) = 0;
 
   // Adds a value to position (i,j) if exists, otherwise inserts a new value
-  virtual void addValue(unsigned int i, unsigned int j, double val) = 0;
+  virtual void addValue(unsigned int &i, unsigned int &j, double &val) = 0;
 
   // Subtracts a value to position (i,j) if exists, otherwise inserts a new value with oposite sign
-  virtual void subValue(unsigned int i, unsigned int j, double val) = 0;
+  virtual void subValue(unsigned int &i, unsigned int &j, double &val) = 0;
 
   // Deletes the value in position (i,j) if exists, otherwise does nothing
-  virtual void delValue(unsigned int i, unsigned int j) = 0;
+  virtual void delValue(unsigned int &i, unsigned int &j) = 0;
 
   // Returns the value in position (i,j) if exists, otherwise returns 0
-  virtual double getValue(unsigned int i, unsigned int j) = 0;
+  virtual double getValue(unsigned int &i, unsigned int &j) = 0;
 
   // Returns the sparse matrix in a dense format as a vector of vectors
   virtual std::vector< std::vector<double> > dense() = 0;
