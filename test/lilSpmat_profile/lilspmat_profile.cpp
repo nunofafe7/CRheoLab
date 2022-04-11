@@ -22,17 +22,15 @@ int main(int argc, char const *argv[]) {
       double time2 = 0.0;
       double time3 = 0.0;
 
-      // Declare and initialize a sparse matrix
-      //lilSpmat spmat;
-
       for (unsigned int i = 0; i < NS; i++)
       {
 
-            //Test sparse matrix construction - Test 1
+            // Test sparse matrix construction - Test 1
 
             // Duration 1 start
             auto start1 = std::chrono::high_resolution_clock::now();
 
+            // Declare and initialize a sparse matrix
             lilSpmat *spmat = new lilSpmat(mesh.nCells_,mesh.nCells_);
 
             auto stop1 = std::chrono::high_resolution_clock::now();
@@ -40,8 +38,7 @@ int main(int argc, char const *argv[]) {
             time1 += (pow (10.0, -6.0) * duration1.count());
             // Duration 1 end
 
-
-            //Test sparse matrix fill-in - Test 2
+            // Test sparse matrix fill-in - Test 2
 
             // Declaration of variables
             unsigned int nz;
@@ -78,8 +75,7 @@ int main(int argc, char const *argv[]) {
             time2 += (pow (10.0, -6.0) * duration2.count());
             // Duration 2 end
 
-
-            //Test sparse matrix multiplication - Test 3
+            // Test sparse matrix multiplication - Test 3
 
             // Declaration of variables
             std::vector<double> vecPhi;
@@ -99,7 +95,7 @@ int main(int argc, char const *argv[]) {
             time3 += (pow (10.0, -6.0) * duration3.count());
             // Duration 3 end
 
-            //desctructor
+            // Destructor
             delete spmat;
 
       }

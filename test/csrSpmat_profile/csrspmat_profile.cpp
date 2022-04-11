@@ -26,14 +26,12 @@ int main(int argc, char const *argv[])
       for (unsigned int i = 0; i < NS; i++)
       {
 
-            //Test sparse matrix construction - Test 1
+            // Test sparse matrix construction - Test 1
 
             // Duration 1 start
             auto start1 = std::chrono::high_resolution_clock::now();
 
             // Declare and initialize a sparse matrix
-            //csrSpmat spmat;
-
             csrSpmat *spmat = new csrSpmat(mesh);
 
             auto stop1 = std::chrono::high_resolution_clock::now();
@@ -41,8 +39,7 @@ int main(int argc, char const *argv[])
             time1 += (pow (10.0, -6.0) * duration1.count());
             // Duration 1 end
 
-
-            //Test sparse matrix fill-in - Test 2
+            // Test sparse matrix fill-in - Test 2
 
             // Declaration of variables
             const Cell *neigh_ptr;
@@ -78,7 +75,6 @@ int main(int argc, char const *argv[])
             time2 += (pow (10.0, -6.0) * duration2.count());
             // Duration 2 end
 
-
             //Test sparse matrix multiplication - Test 3
 
             // Declaration of variables
@@ -97,9 +93,9 @@ int main(int argc, char const *argv[])
             auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - start3);
             time3 += (pow (10.0, -6.0) * duration3.count());
             // Duration 3 end
-            
-            //desctructor
-            delete spmat; 
+
+            // Destructor
+            delete spmat;
 
       }
 

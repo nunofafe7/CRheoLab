@@ -11,9 +11,8 @@ csrSpmat::csrSpmat(Mesh &mesh)
   numCols_ = mesh.nCells_;
 
   // Declaration of variables
-  unsigned int nz;
-  const Cell* neigh_ptr;
-  const Cell* owner_ptr;
+  unsigned int nz, aux;
+  const Cell *neigh_ptr, *owner_ptr;
 
   // Determine the total number of non-zeros values (number of cells plus its neighbours)
   nz = 0;
@@ -67,8 +66,19 @@ csrSpmat::csrSpmat(Mesh &mesh)
         }
       }
     }
-    // order columns in each row
-    //
+    // Reorder the columns
+    for (unsigned int j=row_ptr_[i];j<row_ptr_[i]+nz;j++)
+    {
+      for (unsigned int k=j+1;k<=row_ptr_[i]+nz;k++)
+      {
+        if (columns_[j]>columns_[k])
+        {
+          aux = columns_[j];
+          columns_[j] = columns_[k];
+          columns_[k] = aux;
+        }
+      }
+    }
   }
   row_ptr_[numRows_] = nz;
 }
