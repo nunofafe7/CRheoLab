@@ -65,17 +65,17 @@ csrSpmat::csrSpmat(Mesh &mesh)
           nz += 1;
         }
       }
-    }
-    // Reorder the columns
-    for (unsigned int j=row_ptr_[i];j<row_ptr_[i]+nz;j++)
-    {
-      for (unsigned int k=j+1;k<=row_ptr_[i]+nz;k++)
+      // Reorder the columns
+      for (unsigned int j=row_ptr_[i];j<row_ptr_[i]+nz;j++)
       {
-        if (columns_[j]>columns_[k])
+        for (unsigned int k=j+1;k<=row_ptr_[i]+nz;k++)
         {
-          aux = columns_[j];
-          columns_[j] = columns_[k];
-          columns_[k] = aux;
+          if (columns_[j]>columns_[k])
+          {
+            aux = columns_[j];
+            columns_[j] = columns_[k];
+            columns_[k] = aux;
+          }
         }
       }
     }
