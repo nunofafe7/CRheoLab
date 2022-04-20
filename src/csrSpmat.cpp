@@ -4,7 +4,7 @@
 
 // Constructor
 // Constructs an empty sparse matrix and allocates memory for the rows
-csrSpmat::csrSpmat(Mesh &mesh)
+csrSpmat::csrSpmat(Mesh& mesh)
 {
   // Store number of rows and columns
   numRows_ = mesh.nCells_;
@@ -18,13 +18,13 @@ csrSpmat::csrSpmat(Mesh &mesh)
   nz = 0;
   for (unsigned int i=0;i<mesh.nCells_;i++)
   {
-    nz += 1;
+    nz++;
     for (unsigned int j=0;j<mesh.cellList_[i].cellFaces_.size();j++) // getter?
     {
       neigh_ptr = mesh.cellList_[i].cellFaces_[j]->getNeighbour();
       if(neigh_ptr != NULL)
       {
-         nz += 1;
+         nz++;
       }
     }
   }
@@ -47,7 +47,7 @@ csrSpmat::csrSpmat(Mesh &mesh)
   {
     row_ptr_[i] = nz;
     columns_[nz] = i;
-    nz += 1;
+    nz++;
     for (unsigned int j=0;j<mesh.cellList_[i].cellFaces_.size();j++) // getter?
     {
       neigh_ptr = mesh.cellList_[i].cellFaces_[j]->getNeighbour();
@@ -57,12 +57,12 @@ csrSpmat::csrSpmat(Mesh &mesh)
         if(neigh_ptr->ID_ == i)
         {
           columns_[nz] = owner_ptr->ID_;
-          nz += 1;
+          nz++;
         }
         else //if(owner_ptr.ID_ == i)
         {
           columns_[nz] = neigh_ptr->ID_;
-          nz += 1;
+          nz++;
         }
       }
     }
@@ -90,7 +90,7 @@ double csrSpmat::sparsity()
 }
 
 // Sets a value to position (i,j) if exists, otherwise inserts a new value
-void csrSpmat::setValue(unsigned int &i, unsigned int &j, double &val)
+void csrSpmat::setValue(const unsigned int& i, const unsigned int& j, const double& val)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -100,12 +100,12 @@ void csrSpmat::setValue(unsigned int &i, unsigned int &j, double &val)
       return;
     }
   }
-  std::cout << "Error: invalid column for sparse structure matrix" << std::endl;
-  exit(0);
+  // Throws exception to stop the program
+  throw std::runtime_error("Error: invalid column for sparse structure matrix");
 }
 
 // Adds a value to position (i,j) if exists, otherwise inserts a new value
-void csrSpmat::addValue(unsigned int &i, unsigned int &j, double &val)
+void csrSpmat::addValue(const unsigned int& i, const unsigned int& j, const double& val)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -115,12 +115,12 @@ void csrSpmat::addValue(unsigned int &i, unsigned int &j, double &val)
       return;
     }
   }
-  std::cout << "Error: invalid column for sparse structure matrix" << std::endl;
-  exit(0);
+  // Throws exception to stop the program
+  throw std::runtime_error("Error: invalid column for sparse structure matrix");
 }
 
 // Subtracts a value to position (i,j) if exists, otherwise inserts a new value
-void csrSpmat::subValue(unsigned int &i, unsigned int &j, double &val)
+void csrSpmat::subValue(const unsigned int& i, const unsigned int& j, const double& val)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -130,12 +130,12 @@ void csrSpmat::subValue(unsigned int &i, unsigned int &j, double &val)
       return;
     }
   }
-  std::cout << "Error: invalid column for sparse structure matrix" << std::endl;
-  exit(0);
+  // Throws exception to stop the program
+  throw std::runtime_error("Error: invalid column for sparse structure matrix");
 }
 
 // Deletes the value in position (i,j) if exists, otherwise does nothing
-void csrSpmat::delValue(unsigned int &i, unsigned int &j)
+void csrSpmat::delValue(const unsigned int& i, const unsigned int& j)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -145,12 +145,12 @@ void csrSpmat::delValue(unsigned int &i, unsigned int &j)
       return;
     }
   }
-  std::cout << "Error: invalid column for sparse structure matrix" << std::endl;
-  exit(0);
+  // Throws exception to stop the program
+  throw std::runtime_error("Error: invalid column for sparse structure matrix");
 }
 
 // Returns the value in position (i,j) if exists, otherwise returns 0
-double csrSpmat::getValue(unsigned int &i, unsigned int &j)
+double csrSpmat::getValue(const unsigned int& i, const unsigned int& j)
 {
   for (unsigned int k=row_ptr_[i];k<row_ptr_[i+1];k++)
   {
@@ -165,13 +165,8 @@ double csrSpmat::getValue(unsigned int &i, unsigned int &j)
 // Returns the sparse matrix in a dense format as a vector of vectors
 std::vector< std::vector<double> > csrSpmat::dense()
 {
-  std::vector< std::vector<double> > denseMatrix(numRows_);
-  std::vector<double> temp(numCols_);
+  std::vector< std::vector<double> > denseMatrix(numCols_, std::vector<double>(numCols_));
   unsigned int id_column = 0;
-  for(unsigned int i=0;i<numRows_;i++)
-  {
-    denseMatrix[i] = temp;
-  }
   for (unsigned int i=0;i<numRows_;i++)
   {
     for (unsigned int j=row_ptr_[i];j<row_ptr_[i+1];j++)
@@ -184,7 +179,7 @@ std::vector< std::vector<double> > csrSpmat::dense()
 }
 
 // Function that returns the product matrix-vector as a vector
-std::vector<double> csrSpmat::matMul(const std::vector<double> &vecPhi)
+std::vector<double> csrSpmat::matMul(const std::vector<double>& vecPhi)
 {
   std::vector<double> v(vecPhi.size());
   unsigned int j = 0;
@@ -201,7 +196,7 @@ std::vector<double> csrSpmat::matMul(const std::vector<double> &vecPhi)
 }
 
 // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
-double csrSpmat::vecMul(const unsigned int &i, const std::vector<double> &vecPhi)
+double csrSpmat::vecMul(const unsigned int& i, const std::vector<double>& vecPhi)
 {
   double sumProdRow = 0.0;
   unsigned int j = row_ptr_[i];
@@ -214,20 +209,23 @@ double csrSpmat::vecMul(const unsigned int &i, const std::vector<double> &vecPhi
 }
 
 // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double excluding the diagonal
-double csrSpmat::vecMulNoDiagonal(const unsigned int &i,const std::vector<double> &vecPhi)
+double csrSpmat::vecMulNoDiagonal(const unsigned int& i,const std::vector<double>& vecPhi)
 {
   double sumProdRow = 0.0;
   unsigned int j = row_ptr_[i];
   while (j<row_ptr_[i+1])
   {
-    if (i != columns_[j]) sumProdRow += values_[j] * vecPhi[columns_[j]];
+    if (i != columns_[j])
+    {
+      sumProdRow += values_[j] * vecPhi[columns_[j]];
+    }
     j += 1;
   }
   return sumProdRow;
 }
 
 // Returns a double given by the sum of the products of xValue (a double) for a specific row of the matrix
-double csrSpmat::xValueProduct(const unsigned int &i, const double &xValue)
+double csrSpmat::xValueProduct(const unsigned int& i, const double& xValue)
 {
   double sumProdRow = 0.0;
   unsigned int j = row_ptr_[i];

@@ -28,7 +28,7 @@ double lilSpmat::sparsity()
 }
 
 // Sets a value to position (i,j) if exists, otherwise inserts a new value
-void lilSpmat::setValue(unsigned int &i, unsigned int &j, double &val)
+void lilSpmat::setValue(const unsigned int& i, const unsigned int& j, const double& val)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -43,7 +43,7 @@ void lilSpmat::setValue(unsigned int &i, unsigned int &j, double &val)
 }
 
 // Adds a value to position (i,j) if exists, otherwise inserts a new value
-void lilSpmat::addValue(unsigned int &i, unsigned int &j, double &val)
+void lilSpmat::addValue(const unsigned int& i, const unsigned int& j, const double& val)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -58,7 +58,7 @@ void lilSpmat::addValue(unsigned int &i, unsigned int &j, double &val)
 }
 
 // Subtracts a value to position (i,j) if exists, otherwise inserts a new value
-void lilSpmat::subValue(unsigned int &i, unsigned int &j, double &val)
+void lilSpmat::subValue(const unsigned int& i, const unsigned int& j, const double& val)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -73,7 +73,7 @@ void lilSpmat::subValue(unsigned int &i, unsigned int &j, double &val)
 }
 
 // Deletes the value in position (i,j) if exists, otherwise does nothing
-void lilSpmat::delValue(unsigned int &i, unsigned int &j)
+void lilSpmat::delValue(const unsigned int& i, const unsigned int& j)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -87,7 +87,7 @@ void lilSpmat::delValue(unsigned int &i, unsigned int &j)
 }
 
 // Returns the value in position (i,j) if exists, otherwise returns 0
-double lilSpmat::getValue(unsigned int &i, unsigned int &j)
+double lilSpmat::getValue(const unsigned int& i, const unsigned int& j)
 {
   for(unsigned int k=0;k<columns_[i].size();k++)
   {
@@ -121,7 +121,7 @@ std::vector< std::vector<double> > lilSpmat::dense()
 }
 
 // Function that returns the product matrix-vector as a vector
-std::vector<double> lilSpmat::matMul(const std::vector<double> &vecPhi)
+std::vector<double> lilSpmat::matMul(const std::vector<double>& vecPhi)
 {
   std::vector<double> v(vecPhi.size());
   unsigned int id_column = 0;
@@ -138,7 +138,7 @@ std::vector<double> lilSpmat::matMul(const std::vector<double> &vecPhi)
 }
 
 // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
-double lilSpmat::vecMul(const unsigned int &i, const std::vector<double> &vecPhi)
+double lilSpmat::vecMul(const unsigned int& i, const std::vector<double>& vecPhi)
 {
   double sumProdRow = 0.0;
   unsigned int id_column = 0;
@@ -151,7 +151,7 @@ double lilSpmat::vecMul(const unsigned int &i, const std::vector<double> &vecPhi
 }
 
 // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double excluding the diagonal
-double lilSpmat::vecMulNoDiagonal(const unsigned int &i, const std::vector<double> &vecPhi)
+double lilSpmat::vecMulNoDiagonal(const unsigned int& i, const std::vector<double>& vecPhi)
 {
   double sumProdRow = 0.0;
   unsigned int id_column = 0;
@@ -164,7 +164,7 @@ double lilSpmat::vecMulNoDiagonal(const unsigned int &i, const std::vector<doubl
 }
 
 // Returns a double given by the sum of the products of xValue (a double) for a specific row of the matrix
-double lilSpmat::xValueProduct(const unsigned int &i, const double &xValue)
+double lilSpmat::xValueProduct(const unsigned int& i, const double& xValue)
 {
   double sumProdRow = 0.0;
   for(unsigned int j=0;j<columns_[i].size();j++)

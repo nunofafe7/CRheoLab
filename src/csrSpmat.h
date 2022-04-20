@@ -28,7 +28,7 @@ public:
   csrSpmat(){}
 
   // Constructor
-  csrSpmat(Mesh &mesh);
+  csrSpmat(Mesh& mesh);
 
   // Destructor
   virtual ~csrSpmat(){};
@@ -37,34 +37,34 @@ public:
   double sparsity() override;
 
   // Sets a value to position (i,j) if exists, otherwise inserts a new value
-  void setValue(unsigned int &i, unsigned int &j, double &val) override;
+  void setValue(const unsigned int& i, const unsigned int& j, const double& val) override;
 
   // Adds a value to position (i,j) if exists, otherwise throws an error
-  void addValue(unsigned int &i, unsigned int &j, double &val) override;
+  void addValue(const unsigned int& i, const unsigned int& j, const double& val) override;
 
   // Subtracts a value to position (i,j) if exists, otherwise throws an error
-  void subValue(unsigned int &i, unsigned int &j, double &val) override;
+  void subValue(const unsigned int& i, const unsigned int& j, const double& val) override;
 
   // Deletes the value in position (i,j) if exists, otherwise throws an error
-  void delValue(unsigned int &i, unsigned int &j) override;
+  void delValue(const unsigned int& i, const unsigned int& j) override;
 
   // Returns the value in position (i,j) if exists, otherwise returns 0
-  double getValue(unsigned int &i, unsigned int &j) override;
+  double getValue(const unsigned int& i, const unsigned int& j) override;
 
   // Returns the sparse matrix in a dense format as a vector of vectors
   std::vector< std::vector<double> > dense() override;
 
   // Returns the product matrix-vector as a vector
-  std::vector<double> matMul(const std::vector<double> &vecPhi) override;
+  std::vector<double> matMul(const std::vector<double>& vecPhi) override;
 
   // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
-  double vecMul(const unsigned int &i, const std::vector<double> &vecPhi) override;
+  double vecMul(const unsigned int& i, const std::vector<double>& vecPhi) override;
 
   // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double excluding the diagonal
-  double vecMulNoDiagonal(const unsigned int &i, const std::vector<double> &vecPhi) override;
+  double vecMulNoDiagonal(const unsigned int& i, const std::vector<double>& vecPhi) override;
 
   // Returns a double given by the sum of the products of xValue (a double) for the elements of the iRow matrix row
-  double xValueProduct(const unsigned int &i, const double &xValue) override;
+  double xValueProduct(const unsigned int& i, const double& xValue) override;
 
 };
 
