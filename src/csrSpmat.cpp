@@ -201,7 +201,7 @@ std::vector<double> csrSpmat::matMul(const std::vector<double> &vecPhi)
 }
 
 // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
-double csrSpmat::vecMul(const unsigned int i, const std::vector<double> &vecPhi)
+double csrSpmat::vecMul(const unsigned int &i, const std::vector<double> &vecPhi)
 {
   double sumProdRow = 0.0;
   unsigned int j = row_ptr_[i];

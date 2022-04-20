@@ -59,7 +59,7 @@ public:
   std::vector<double> matMul(const std::vector<double> &vecPhi) override;
 
   // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
-  double vecMul(const unsigned int i, const std::vector<double> &vecPhi) override;
+  double vecMul(const unsigned int &i, const std::vector<double> &vecPhi) override;
 
   // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double excluding the diagonal
   double vecMulNoDiagonal(const unsigned int &i, const std::vector<double> &vecPhi) override;

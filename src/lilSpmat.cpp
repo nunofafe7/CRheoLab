@@ -138,7 +138,7 @@ std::vector<double> lilSpmat::matMul(const std::vector<double> &vecPhi)
 }
 
 // Returns the product (row-of-matrix)-vector for a specific row of the matrix as a double
-double lilSpmat::vecMul(const unsigned int i, const std::vector<double> &vecPhi)
+double lilSpmat::vecMul(const unsigned int &i, const std::vector<double> &vecPhi)
 {
   double sumProdRow = 0.0;
   unsigned int id_column = 0;
