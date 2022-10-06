@@ -58,6 +58,9 @@ class Face
         // Write to stream
         friend std::ostream& operator<<(std::ostream& , const Face& );
 
+        // Center of mass
+        vector3 centerOfMass_;
+        
     private:
         int ID_;
 
@@ -70,8 +73,6 @@ class Face
         // Area
         double area_;
 
-        // Center of mass
-        vector3 centerOfMass_;
 
         /// Area vector, \f$\vec{S}_f\f$
         vector3 areaVector_;

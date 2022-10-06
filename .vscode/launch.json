@@ -8,13 +8,13 @@
             "request": "launch",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/run/",
             "environment": [],
             "externalConsole": false,
             "linux": {
                 "MIMode": "gdb",
                 "miDebuggerPath": "gdb",
-                "program": "${workspaceFolder}/CRheo"
+                "program": "${workspaceFolder}/bin/nunoTest"
             },
             "setupCommands": [
                 {

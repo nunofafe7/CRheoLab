@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2106                                  |
+|  \\    /   O peration     | Version:  v2012                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -9,49 +9,52 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    arch        "LSB;label=32;scalar=64";
     class       polyBoundaryMesh;
     location    "constant/polyMesh";
     object      boundary;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-5
+6
 (
-    top
+    inlet
     {
-        type            wall;
-        inGroups        1(wall);
-        nFaces          625;
-        startFace       45000;
+        type            patch;
+        nFaces          16;
+        startFace       474;
+    }
+    outlet
+    {
+        type            patch;
+        nFaces          10;
+        startFace       490;
     }
     bottom
     {
-        type            wall;
-        inGroups        1(wall);
-        nFaces          625;
-        startFace       45625;
+        type            symmetryPlane;
+        inGroups        1(symmetryPlane);
+        nFaces          6;
+        startFace       500;
     }
-    frontAndBack
+    top
     {
-        type            wall;
-        inGroups        1(wall);
-        nFaces          1250;
-        startFace       46250;
+        type            symmetryPlane;
+        inGroups        1(symmetryPlane);
+        nFaces          22;
+        startFace       506;
     }
-    left
+    obstacle
     {
-        type            wall;
-        inGroups        1(wall);
-        nFaces          625;
-        startFace       47500;
+        type            patch;
+        nFaces          22;
+        startFace       528;
     }
-    right
+    defaultFaces
     {
-        type            wall;
-        inGroups        1(wall);
-        nFaces          625;
-        startFace       48125;
+        type            empty;
+        inGroups        1(empty);
+        nFaces          512;
+        startFace       550;
     }
 )
 

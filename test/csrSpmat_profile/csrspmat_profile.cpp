@@ -9,7 +9,6 @@
 
 int main(int argc, char const *argv[])
 {
-
       std::cout << "#############################################################" << std::endl;
       std::cout << "Profile csrSpmat class" << std::endl;
       std::cout << "#############################################################" << std::endl;

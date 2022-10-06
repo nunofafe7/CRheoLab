@@ -59,9 +59,10 @@ public:
 
   std::vector<IOObject*> dataBase_;
 
+  void readMesh();
+  
 private:
 
-  void readMesh();
 
   unsigned int getNEntitites(std::ifstream& file);
 
