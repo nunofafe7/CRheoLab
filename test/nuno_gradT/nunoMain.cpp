@@ -40,24 +40,18 @@ int main()
     {
         double x =  mesh.cellList_.at(cellI).centerOfMass_[0];
         double y =  mesh.cellList_.at(cellI).centerOfMass_[1];
+        double z =  mesh.cellList_.at(cellI).centerOfMass_[2];
         
-        Temperature.internalFieldRef().at(cellI) = (x*x)+y ;
+        //Temperature.internalFieldRef().at(cellI) = (x*x)+y ;
         //Temperature.internalFieldRef().at(cellI) = 0 ;
-        //Temperature.internalFieldRef().at(cellI) = 10 ;
-
-    }
-
-    /*for (size_t cellI = 0; cellI < Temperature.internalField().size(); cellI++)
-    {
         Temperature.internalFieldRef().at(cellI) = 10 ;
-    }*/
-
+    }
 
     GradT test0(Temperature);
 
 
     test0.gradientT(Temperature);
     test0.analyticGradientT(Temperature);
-    //test0.errorCalculation(Temperature);
+    test0.errorCalculation(Temperature);
 }
 

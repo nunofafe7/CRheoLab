@@ -12,8 +12,11 @@ class GradT
 
         //Data Members
         std::vector<vector3> gradCell;
-
         std::vector<vector3> analyticGradT;
+        std::vector<double> individualErrorX;
+        std::vector<double> individualErrorY;
+        std::vector<double> individualErrorZ;
+        vector3 nuno;
 
         // Constructor
         GradT(VolField<scalarField>& vf);

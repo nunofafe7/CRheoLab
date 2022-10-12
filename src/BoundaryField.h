@@ -46,10 +46,11 @@ class BoundaryField
 
         BoundaryField& operator=(const BoundaryField &bf); //provisional
 
+        vector<Boundary<vectorType>> boundaryData_;
+        
     private:
 
         // Private Data Members
-        vector<Boundary<vectorType>> boundaryData_;
         const int nPatches_;
         
 };

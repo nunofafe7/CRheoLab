@@ -17,13 +17,15 @@ class Patch
 
         int nFaces() const;
 
+        int startFace_;
+        
+        int nFaces_;
+
     protected:
 
     private:
         std::string name_;
         std::string type_;
-        int nFaces_;
-        int startFace_;
 
 };
 
