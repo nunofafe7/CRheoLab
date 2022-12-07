@@ -2,7 +2,7 @@
 #include "mathOperations.h"
 #include "spmat.h"
 #include <cmath>
-#include<vector>
+#include <vector>
 
     //******************* Constructor() *******************
 GradT::GradT(VolField<scalarField>& vf)
@@ -91,14 +91,14 @@ void GradT::gradientT(VolField<scalarField>& vf)
 
             if (sf[2] == 0)
             {
-                double Tface = vf.internalFieldRef().at(ownInd)+(((dface2-down2) / (dface2-down2))*(10-vf.internalFieldRef().at(ownInd)));
+                double Tface = vf.internalFieldRef().at(ownInd)+(((dface2-down2) / (dface2-down2))*((/*boundaryTemperature*/(xface2*xface2)+yface2)-vf.internalFieldRef().at(ownInd)));
                 vector3 grad2 = (sf*Tface);
                 gradCell[ownInd] = gradCell[ownInd] + grad2;
             }
 
             if (gradCell[ownInd][0] < 0.000001 && gradCell[ownInd][0] > -0.000001) {gradCell[ownInd][0] = 0;}
             if (gradCell[ownInd][1] < 0.000001 && gradCell[ownInd][1] > -0.000001) {gradCell[ownInd][1] = 0;}
-            if (ownInd == 0) {std::cout<<"Cell id="<< ownInd << " gradientBoundary:" << gradCell[ownInd]<< std::endl;}
+            //if (ownInd == 0) {std::cout<<"Cell id="<< ownInd << " gradientBoundary:" << gradCell[ownInd]<< std::endl;}
         }
     }
 
@@ -122,14 +122,14 @@ void GradT::analyticGradientT(VolField<scalarField>& vf)
         double x =  vf.mesh().cellList_.at(cellI).centerOfMass_[0];
         //double y =  vf.mesh().cellList_.at(cellI).centerOfMass_[1]; 
 
-        analyticGradT[cellI] = {0, 0, 0};
-        //analyticGradT[cellI] = {2*x, 1, 0};
+        //analyticGradT[cellI] = {0, 0, 0};
+        analyticGradT[cellI] = {2*x, 1, 0};
 
     }
     std::cout << "analytic gradient of temperature in cells is: " << analyticGradT << std::endl;
 }
 
-    //******************* Error Calculation *******************
+     //******************* Error Calculation *******************
     //********************************************************
 void GradT::errorCalculation(VolField<scalarField>& vf)
 {
@@ -160,7 +160,7 @@ void GradT::errorCalculation(VolField<scalarField>& vf)
     for (size_t a = 0; a < vf.mesh().nCells_; a++)
     {   
         //get list of errors in position x for each element of the vector
-        individualErrorX[a] = abs(gradCell[a][0] - analyticGradT[a][0]);
+        individualErrorX[a] = sqrt((gradCell[a][0] - analyticGradT[a][0])*(gradCell[a][0] - analyticGradT[a][0]));
         sumX += individualErrorX[a];
         
         //get max value
@@ -178,11 +178,16 @@ void GradT::errorCalculation(VolField<scalarField>& vf)
     double medErrorX = sumX / vf.mesh().nCells_;
     if (medErrorX < 0.000001){medErrorX = 0;}
 
-    std::cout << "Medium quadratic error in x is: " << medErrorX << std::endl;
-    std::cout << "Maximum quadratic error in x is: " << maxX << std::endl;
-    std::cout << "Minimum quadratic error in x is: " << minX << std::endl;
-    //std::cout << "Infinit error is: " << infiniteError << std::endl;
-    
+    double quadraticErrorX;
+    for (int d = 0; d < vf.mesh().nCells_; d++)
+    {
+        quadraticErrorX += (((gradCell[d][0]-analyticGradT[d][0])-medErrorX)*((gradCell[d][0]-analyticGradT[d][0])-medErrorX));
+    }
+
+    std::cout << "Medium error in x is: " << medErrorX << std::endl;
+    std::cout << "Maximum in x is: " << maxX << std::endl;
+    std::cout << "Minimum error in x is: " << minX << std::endl;
+    std::cout << "Medium quadratic error in x is: " << quadraticErrorX << std::endl;
 
     //******************* Error In Y *******************
     double sumY;
@@ -192,7 +197,7 @@ void GradT::errorCalculation(VolField<scalarField>& vf)
     for (size_t b = 0; b < vf.mesh().nCells_; b++)
     {   
         //get list of errors in position x for each element of the vector
-        individualErrorY[b] = abs(gradCell[b][1] - analyticGradT[b][1]);
+        individualErrorY[b] = sqrt((gradCell[b][1] - analyticGradT[b][1])*(gradCell[b][1] - analyticGradT[b][1]));
         sumY += individualErrorY[b];
         
         //get max value
@@ -210,9 +215,16 @@ void GradT::errorCalculation(VolField<scalarField>& vf)
     double medErrorY = sumY / vf.mesh().nCells_;
     if (medErrorY < 0.000001){medErrorY = 0;}
 
-    std::cout << "Medium quadratic error in y is: " << medErrorY << std::endl;
-    std::cout << "Maximum quadratic error in y is: " << maxY << std::endl;
-    std::cout << "Minimum quadratic error in y is: " << minY << std::endl;
+    double quadraticErrorY;
+    for (int d = 0; d < vf.mesh().nCells_; d++)
+    {
+        quadraticErrorY += (((gradCell[d][1]-analyticGradT[d][1])-medErrorY)*((gradCell[d][1]-analyticGradT[d][1])-medErrorY));
+    }
+
+    std::cout << "Medium error in y is: " << medErrorY << std::endl;
+    std::cout << "Maximum error in y is: " << maxY << std::endl;
+    std::cout << "Minimum error in y is: " << minY << std::endl;
+    std::cout << "Medium quadratic error in y is: " << quadraticErrorY << std::endl;
 
         //******************* Error In Z *******************
     double sumZ;
@@ -222,7 +234,7 @@ void GradT::errorCalculation(VolField<scalarField>& vf)
     for (size_t c = 0; c < vf.mesh().nCells_; c++)
     {   
         //get list of errors in position x for each element of the vector
-        individualErrorZ[c] = abs(gradCell[c][2] - analyticGradT[c][2]);
+        individualErrorZ[c] = sqrt((gradCell[c][2] - analyticGradT[c][2])*(gradCell[c][2] - analyticGradT[c][2]));
         sumY += individualErrorZ[c];
         
         //get max value
@@ -240,9 +252,16 @@ void GradT::errorCalculation(VolField<scalarField>& vf)
     double medErrorZ = sumZ / vf.mesh().nCells_;
     if (medErrorZ < 0.000001){medErrorZ = 0;}
 
-    std::cout << "Medium quadratic error in z is: " << medErrorZ << std::endl;
-    std::cout << "Maximum quadratic error in z is: " << maxZ << std::endl;
-    std::cout << "Minimum quadratic error in z is: " << minZ << std::endl;
+    double quadraticErrorZ;
+    for (int d = 0; d < vf.mesh().nCells_; d++)
+    {
+        quadraticErrorZ += (((gradCell[d][2]-analyticGradT[d][2])-medErrorZ)*((gradCell[d][2]-analyticGradT[d][2])-medErrorZ));
+    }
+
+    std::cout << "Medium error in z is: " << medErrorZ << std::endl;
+    std::cout << "Maximum error in z is: " << maxZ << std::endl;
+    std::cout << "Minimum error in z is: " << minZ << std::endl;
+    //std::cout << "Medium quadratic error in z is: " << quadraticErrorZ << std::endl;
 }
 
 

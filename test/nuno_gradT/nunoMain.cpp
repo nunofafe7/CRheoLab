@@ -42,9 +42,9 @@ int main()
         double y =  mesh.cellList_.at(cellI).centerOfMass_[1];
         double z =  mesh.cellList_.at(cellI).centerOfMass_[2];
         
-        //Temperature.internalFieldRef().at(cellI) = (x*x)+y ;
+        Temperature.internalFieldRef().at(cellI) = (x*x)+y ;
         //Temperature.internalFieldRef().at(cellI) = 0 ;
-        Temperature.internalFieldRef().at(cellI) = 10 ;
+        //Temperature.internalFieldRef().at(cellI) = 10 ;
     }
 
     GradT test0(Temperature);
